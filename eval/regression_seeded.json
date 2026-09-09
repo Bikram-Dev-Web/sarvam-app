@@ -1,0 +1,178 @@
+[
+  {
+    "id": "CASE-01",
+    "category": "core_brief_example",
+    "description": "Original assignment brief case with multiple entity replacements (Person + Product)",
+    "asr_input": "ask aditya to review the sarvam kiwi service",
+    "formatted_input": "Ask Aditya to review the Sarvam Kiwi service.",
+    "expected_output": "Ask Aaditya to review the Sarvam Kivi service.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Aaditya", "Kivi"],
+    "notes": "Must substitute Aditya -> Aaditya and Kiwi -> Kivi due to Sarvam context."
+  },
+  {
+    "id": "CASE-02",
+    "category": "negative_context_suppression",
+    "description": "Homophone trap where 'kiwi' refers to the fruit, not the speech product",
+    "asr_input": "i want to eat a fresh kiwi fruit for breakfast",
+    "formatted_input": "I want to eat a fresh kiwi fruit for breakfast.",
+    "expected_output": "I want to eat a fresh kiwi fruit for breakfast.",
+    "expected_decision": "DO_NOTHING",
+    "target_terms": [],
+    "notes": "System must deliberately DO NOTHING due to negative context words 'fruit' and 'eat'."
+  },
+  {
+    "id": "CASE-03",
+    "category": "negative_context_suppression",
+    "description": "Homophone trap where 'kneel' is a verb of physical posture, not person 'Neil'",
+    "asr_input": "please kneel down on the floor to check the cable",
+    "formatted_input": "Please kneel down on the floor to check the cable.",
+    "expected_output": "Please kneel down on the floor to check the cable.",
+    "expected_decision": "DO_NOTHING",
+    "target_terms": [],
+    "notes": "Must suppress replacement because 'down' and 'floor' trigger negative context."
+  },
+  {
+    "id": "CASE-04",
+    "category": "person_name_disambiguation",
+    "description": "Person name replacement in professional communication context",
+    "asr_input": "i had a sync call with kneel to discuss the backend roadmap",
+    "formatted_input": "I had a sync call with kneel to discuss the backend roadmap.",
+    "expected_output": "I had a sync call with Neil to discuss the backend roadmap.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Neil"],
+    "notes": "Context 'call' and 'sync' activates person Neil."
+  },
+  {
+    "id": "CASE-05",
+    "category": "indian_name_phonetic_variant",
+    "description": "Indian transliteration variant of product manager name",
+    "asr_input": "please assign the jira ticket to diksha for product review",
+    "formatted_input": "Please assign the jira ticket to Diksha for product review.",
+    "expected_output": "Please assign the jira ticket to Deeksha for product review.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Deeksha"],
+    "notes": "Phonetic similarity between Diksha and Deeksha with product/jira context."
+  },
+  {
+    "id": "CASE-06",
+    "category": "technical_jargon_replacement",
+    "description": "Machine learning framework misrecognized as common words",
+    "asr_input": "we trained our model using pie torch on multi gpu cluster",
+    "formatted_input": "We trained our model using pie torch on multi GPU cluster.",
+    "expected_output": "We trained our model using PyTorch on multi GPU cluster.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["PyTorch"],
+    "notes": "Multi-word alias 'pie torch' converted to 'PyTorch' in GPU/model context."
+  },
+  {
+    "id": "CASE-07",
+    "category": "negative_context_suppression",
+    "description": "Culinary context mentioning pie and a torch should not turn into PyTorch",
+    "asr_input": "baking an apple pie with a culinary torch in the oven",
+    "formatted_input": "Baking an apple pie with a culinary torch in the oven.",
+    "expected_output": "Baking an apple pie with a culinary torch in the oven.",
+    "expected_decision": "DO_NOTHING",
+    "target_terms": [],
+    "notes": "Negative context 'pie', 'oven', 'baking' suppresses ML framework replacement."
+  },
+  {
+    "id": "CASE-08",
+    "category": "cloud_infrastructure_product",
+    "description": "Spoken acronym/phonetic for Kubernetes cluster deployment",
+    "asr_input": "deploy the docker container to the coober nettees cluster",
+    "formatted_input": "Deploy the Docker container to the coober nettees cluster.",
+    "expected_output": "Deploy the Docker container to the Kubernetes cluster.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Kubernetes"],
+    "notes": "Phonetic matching for 'coober nettees' -> Kubernetes."
+  },
+  {
+    "id": "CASE-09",
+    "category": "database_service_replacement",
+    "description": "Misrecognized developer tool name in backend database context",
+    "asr_input": "we migrated our postgres tables to super base",
+    "formatted_input": "We migrated our postgres tables to super base.",
+    "expected_output": "We migrated our postgres tables to Supabase.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Supabase"],
+    "notes": "'super base' -> 'Supabase' with postgres/migration context."
+  },
+  {
+    "id": "CASE-10",
+    "category": "organization_and_product_cooccurrence",
+    "description": "Company name and proprietary voice product combined sentence",
+    "asr_input": "sarwam released a new version of kiwi for indic speech",
+    "formatted_input": "Sarwam released a new version of kiwi for Indic speech.",
+    "expected_output": "Sarvam released a new version of Kivi for Indic speech.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Sarvam", "Kivi"],
+    "notes": "Sarwam -> Sarvam, kiwi -> Kivi."
+  },
+  {
+    "id": "CASE-11",
+    "category": "neutral_generic_speech",
+    "description": "Ordinary everyday sentence with no personal entities or relevant triggers",
+    "asr_input": "the weather today in bangalore is quite pleasant and windy",
+    "formatted_input": "The weather today in Bangalore is quite pleasant and windy.",
+    "expected_output": "The weather today in Bangalore is quite pleasant and windy.",
+    "expected_decision": "DO_NOTHING",
+    "target_terms": [],
+    "notes": "Must pass through cleanly without any hallucinated or false interventions."
+  },
+  {
+    "id": "CASE-12",
+    "category": "casing_and_punctuation_preservation",
+    "description": "Entity at the beginning of an interrogative sentence",
+    "asr_input": "aditya, did you already push the pr to the repository?",
+    "formatted_input": "Aditya, did you already push the PR to the repository?",
+    "expected_output": "Aaditya, did you already push the PR to the repository?",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Aaditya"],
+    "notes": "Preserves comma and sentence casing."
+  },
+  {
+    "id": "CASE-13",
+    "category": "negative_context_suppression",
+    "description": "Supermarket grocery context mentioning kiwi and apples",
+    "asr_input": "can you buy some kiwi and bananas from the supermarket",
+    "formatted_input": "Can you buy some kiwi and bananas from the supermarket?",
+    "expected_output": "Can you buy some kiwi and bananas from the supermarket?",
+    "expected_decision": "DO_NOTHING",
+    "target_terms": [],
+    "notes": "'supermarket' and 'buy' triggers negative context for Kivi."
+  },
+  {
+    "id": "CASE-14",
+    "category": "organization_recognition",
+    "description": "Spoken company name in startup and indic language context",
+    "asr_input": "serve hum is building speech AI models for India",
+    "formatted_input": "Serve hum is building speech AI models for India.",
+    "expected_output": "Sarvam is building speech AI models for India.",
+    "expected_decision": "INTERVENE",
+    "target_terms": ["Sarvam"],
+    "notes": "Serve hum phonetic match to Sarvam with speech/AI context."
+  },
+  {
+    "id": "CASE-15",
+    "category": "neutral_generic_speech",
+    "description": "Conversation about general cooking with no entity matches",
+    "asr_input": "we prepared some pasta with tomato sauce and basil",
+    "formatted_input": "We prepared some pasta with tomato sauce and basil.",
+    "expected_output": "We prepared some pasta with tomato sauce and basil.",
+    "expected_decision": "DO_NOTHING",
+    "target_terms": [],
+    "notes": "Zero false interventions expected."
+  },
+  {
+    "id": "CASE-16",
+    "category": "database_negative_space",
+    "description": "Baseball discussion mentioning a super base runner",
+    "asr_input": "the player is a super base runner in the baseball tournament",
+    "formatted_input": "The player is a super base runner in the baseball tournament.",
+    "expected_output": "The player is a super base runner in the baseball tournament.",
+    "expected_decision": "DO_NOTHING",
+    "target_terms": [],
+    "notes": "'baseball' triggers negative context for Supabase."
+  }
+]

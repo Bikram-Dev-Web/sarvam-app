@@ -1,0 +1,1865 @@
+{
+  "timestamp": "2026-09-09T16:24:52Z",
+  "total_cases": 16,
+  "passed_cases": 16,
+  "failed_cases": 0,
+  "accuracy_pct": 100.0,
+  "precision_pct": 100.0,
+  "recall_pct": 100.0,
+  "false_intervention_rate_pct": 0.0,
+  "confusion_matrix": {
+    "true_positives": 9,
+    "false_positives": 0,
+    "true_negatives": 7,
+    "false_negatives": 0
+  },
+  "latency": {
+    "avg_ms": 2.57,
+    "p95_ms": 3.98,
+    "min_ms": 1.768,
+    "max_ms": 3.983
+  },
+  "cases": [
+    {
+      "id": "CASE-01",
+      "category": "core_brief_example",
+      "description": "Original assignment brief case with multiple entity replacements (Person + Product)",
+      "asr_input": "ask aditya to review the sarvam kiwi service",
+      "formatted_input": "Ask Aditya to review the Sarvam Kiwi service.",
+      "expected_output": "Ask Aaditya to review the Sarvam Kivi service.",
+      "actual_output": "Ask Aaditya to review the Sarvam Kivi service.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 3.983,
+      "interventions_count": 2,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "Aditya",
+          "start_pos": 1,
+          "end_pos": 1,
+          "matched_memory_term": "Aaditya",
+          "memory_id": 1,
+          "phonetic_similarity": 0.9564,
+          "context_score": 0.5,
+          "evidence_confidence": 0.95,
+          "composite_decision_score": 0.8179,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'Aditya' with personal term 'Aaditya'. Score 0.8179 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.9564,
+            "context_score": 0.5,
+            "evidence_confidence": 0.95,
+            "composite_score": 0.8179,
+            "pos_matched_triggers": [
+              "review",
+              "sarvam",
+              "service"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.917,
+              "soundex_match": true,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.957,
+              "raw_lev_sim": 0.857,
+              "target_phonetics": {
+                "raw": "aaditya",
+                "metaphone": "TTY",
+                "soundex": "A330",
+                "normalized": "aditya"
+              },
+              "candidate_phonetics": {
+                "raw": "aditya",
+                "metaphone": "ATTY",
+                "soundex": "A330",
+                "normalized": "aditya"
+              },
+              "composite_score": 0.9564
+            }
+          }
+        },
+        {
+          "original_span": "Kiwi",
+          "start_pos": 6,
+          "end_pos": 6,
+          "matched_memory_term": "Kivi",
+          "memory_id": 2,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.378,
+          "evidence_confidence": 0.98,
+          "composite_decision_score": 0.7859,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'Kiwi' with personal term 'Kivi'. Score 0.7859 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.378,
+            "evidence_confidence": 0.98,
+            "composite_score": 0.7859,
+            "pos_matched_triggers": [
+              "sarvam",
+              "service"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.667,
+              "soundex_match": false,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.867,
+              "raw_lev_sim": 0.75,
+              "target_phonetics": {
+                "raw": "kivi",
+                "metaphone": "KF",
+                "soundex": "K100",
+                "normalized": "kivi"
+              },
+              "candidate_phonetics": {
+                "raw": "kiwi",
+                "metaphone": "KW",
+                "soundex": "K000",
+                "normalized": "kivi"
+              },
+              "composite_score": 0.7117
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 1,
+            "canonical_term": "Aaditya",
+            "category": "person",
+            "phonetic_code": "TTY",
+            "normalized_phonetic": "aditya",
+            "soundex_code": "A330",
+            "aliases": [
+              "Aditya",
+              "Adithya",
+              "Aadithya"
+            ],
+            "confidence_score": 0.95,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.208427",
+            "created_at": "2026-09-09T16:24:52.208429",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "review",
+              "sarvam",
+              "service",
+              "pr",
+              "meeting",
+              "team",
+              "code",
+              "assigned"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Co-founder / Tech Lead name spelling preference"
+          },
+          {
+            "id": 2,
+            "canonical_term": "Kivi",
+            "category": "product",
+            "phonetic_code": "KF",
+            "normalized_phonetic": "kivi",
+            "soundex_code": "K100",
+            "aliases": [
+              "Kiwi",
+              "Keevi",
+              "Kivee"
+            ],
+            "confidence_score": 0.98,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.214152",
+            "created_at": "2026-09-09T16:24:52.214154",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "sarvam",
+              "service",
+              "speech",
+              "transcribe",
+              "voice",
+              "model",
+              "app",
+              "dictionary",
+              "dictation"
+            ],
+            "negative_contexts": [
+              "fruit",
+              "eat",
+              "slice",
+              "salad",
+              "smoothie",
+              "supermarket",
+              "grocery",
+              "bird",
+              "new zealand"
+            ],
+            "is_active": true,
+            "notes": "Sarvam's speech product name. Never substitute when discussing the fruit or bird."
+          }
+        ]
+      },
+      "notes": "Must substitute Aditya -> Aaditya and Kiwi -> Kivi due to Sarvam context."
+    },
+    {
+      "id": "CASE-02",
+      "category": "negative_context_suppression",
+      "description": "Homophone trap where 'kiwi' refers to the fruit, not the speech product",
+      "asr_input": "i want to eat a fresh kiwi fruit for breakfast",
+      "formatted_input": "I want to eat a fresh kiwi fruit for breakfast.",
+      "expected_output": "I want to eat a fresh kiwi fruit for breakfast.",
+      "actual_output": "I want to eat a fresh kiwi fruit for breakfast.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 2.604,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "kiwi",
+          "start_pos": 6,
+          "end_pos": 6,
+          "matched_memory_term": "Kivi",
+          "memory_id": 2,
+          "phonetic_similarity": 0.95,
+          "context_score": -1.0,
+          "evidence_confidence": 0.98,
+          "composite_decision_score": 0.0,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Kivi was deliberately suppressed: Suppressed: Negative context detected (fruit, eat) (score 0.0 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": -1.0,
+            "evidence_confidence": 0.98,
+            "composite_score": 0.0,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [
+              "fruit",
+              "eat"
+            ],
+            "is_known_alias": true,
+            "reason": "Suppressed: Negative context detected (fruit, eat)",
+            "phonetic_details": {
+              "metaphone_sim": 0.667,
+              "soundex_match": false,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.867,
+              "raw_lev_sim": 0.75,
+              "target_phonetics": {
+                "raw": "kivi",
+                "metaphone": "KF",
+                "soundex": "K100",
+                "normalized": "kivi"
+              },
+              "candidate_phonetics": {
+                "raw": "kiwi",
+                "metaphone": "KW",
+                "soundex": "K000",
+                "normalized": "kivi"
+              },
+              "composite_score": 0.7117
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 2,
+            "canonical_term": "Kivi",
+            "category": "product",
+            "phonetic_code": "KF",
+            "normalized_phonetic": "kivi",
+            "soundex_code": "K100",
+            "aliases": [
+              "Kiwi",
+              "Keevi",
+              "Kivee"
+            ],
+            "confidence_score": 0.98,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.214152",
+            "created_at": "2026-09-09T16:24:52.214154",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "sarvam",
+              "service",
+              "speech",
+              "transcribe",
+              "voice",
+              "model",
+              "app",
+              "dictionary",
+              "dictation"
+            ],
+            "negative_contexts": [
+              "fruit",
+              "eat",
+              "slice",
+              "salad",
+              "smoothie",
+              "supermarket",
+              "grocery",
+              "bird",
+              "new zealand"
+            ],
+            "is_active": true,
+            "notes": "Sarvam's speech product name. Never substitute when discussing the fruit or bird."
+          }
+        ]
+      },
+      "notes": "System must deliberately DO NOTHING due to negative context words 'fruit' and 'eat'."
+    },
+    {
+      "id": "CASE-03",
+      "category": "negative_context_suppression",
+      "description": "Homophone trap where 'kneel' is a verb of physical posture, not person 'Neil'",
+      "asr_input": "please kneel down on the floor to check the cable",
+      "formatted_input": "Please kneel down on the floor to check the cable.",
+      "expected_output": "Please kneel down on the floor to check the cable.",
+      "actual_output": "Please kneel down on the floor to check the cable.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 2.413,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "kneel",
+          "start_pos": 1,
+          "end_pos": 1,
+          "matched_memory_term": "Neil",
+          "memory_id": 8,
+          "phonetic_similarity": 0.95,
+          "context_score": -1.0,
+          "evidence_confidence": 0.9,
+          "composite_decision_score": 0.0,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Neil was deliberately suppressed: Suppressed: Negative context detected (down, floor) (score 0.0 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": -1.0,
+            "evidence_confidence": 0.9,
+            "composite_score": 0.0,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [
+              "down",
+              "floor"
+            ],
+            "is_known_alias": true,
+            "reason": "Suppressed: Negative context detected (down, floor)",
+            "phonetic_details": {
+              "metaphone_sim": 1.0,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.5,
+              "jaro_winkler": 0.783,
+              "raw_lev_sim": 0.6,
+              "target_phonetics": {
+                "raw": "neil",
+                "metaphone": "NL",
+                "soundex": "N400",
+                "normalized": "neil"
+              },
+              "candidate_phonetics": {
+                "raw": "kneel",
+                "metaphone": "NL",
+                "soundex": "K540",
+                "normalized": "knil"
+              },
+              "composite_score": 0.6133
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 8,
+            "canonical_term": "Neil",
+            "category": "person",
+            "phonetic_code": "NL",
+            "normalized_phonetic": "neil",
+            "soundex_code": "N400",
+            "aliases": [
+              "kneel"
+            ],
+            "confidence_score": 0.9,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.235007",
+            "created_at": "2026-09-09T16:24:52.235009",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "meeting",
+              "call",
+              "slack",
+              "manager",
+              "engineer",
+              "sent",
+              "talked"
+            ],
+            "negative_contexts": [
+              "down",
+              "floor",
+              "prayer",
+              "leg",
+              "knee",
+              "ground",
+              "stand"
+            ],
+            "is_active": true,
+            "notes": "Team member name. Suppress when user means the physical action of kneeling."
+          }
+        ]
+      },
+      "notes": "Must suppress replacement because 'down' and 'floor' trigger negative context."
+    },
+    {
+      "id": "CASE-04",
+      "category": "person_name_disambiguation",
+      "description": "Person name replacement in professional communication context",
+      "asr_input": "i had a sync call with kneel to discuss the backend roadmap",
+      "formatted_input": "I had a sync call with kneel to discuss the backend roadmap.",
+      "expected_output": "I had a sync call with Neil to discuss the backend roadmap.",
+      "actual_output": "I had a sync call with Neil to discuss the backend roadmap.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 2.855,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "kneel",
+          "start_pos": 6,
+          "end_pos": 6,
+          "matched_memory_term": "Neil",
+          "memory_id": 8,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.314,
+          "evidence_confidence": 0.9,
+          "composite_decision_score": 0.7467,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'kneel' with personal term 'Neil'. Score 0.7467 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.314,
+            "evidence_confidence": 0.9,
+            "composite_score": 0.7467,
+            "pos_matched_triggers": [
+              "call"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 1.0,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.5,
+              "jaro_winkler": 0.783,
+              "raw_lev_sim": 0.6,
+              "target_phonetics": {
+                "raw": "neil",
+                "metaphone": "NL",
+                "soundex": "N400",
+                "normalized": "neil"
+              },
+              "candidate_phonetics": {
+                "raw": "kneel",
+                "metaphone": "NL",
+                "soundex": "K540",
+                "normalized": "knil"
+              },
+              "composite_score": 0.6133
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 8,
+            "canonical_term": "Neil",
+            "category": "person",
+            "phonetic_code": "NL",
+            "normalized_phonetic": "neil",
+            "soundex_code": "N400",
+            "aliases": [
+              "kneel"
+            ],
+            "confidence_score": 0.9,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.235007",
+            "created_at": "2026-09-09T16:24:52.235009",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "meeting",
+              "call",
+              "slack",
+              "manager",
+              "engineer",
+              "sent",
+              "talked"
+            ],
+            "negative_contexts": [
+              "down",
+              "floor",
+              "prayer",
+              "leg",
+              "knee",
+              "ground",
+              "stand"
+            ],
+            "is_active": true,
+            "notes": "Team member name. Suppress when user means the physical action of kneeling."
+          }
+        ]
+      },
+      "notes": "Context 'call' and 'sync' activates person Neil."
+    },
+    {
+      "id": "CASE-05",
+      "category": "indian_name_phonetic_variant",
+      "description": "Indian transliteration variant of product manager name",
+      "asr_input": "please assign the jira ticket to diksha for product review",
+      "formatted_input": "Please assign the jira ticket to Diksha for product review.",
+      "expected_output": "Please assign the jira ticket to Deeksha for product review.",
+      "actual_output": "Please assign the jira ticket to Deeksha for product review.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 2.506,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "Diksha",
+          "start_pos": 6,
+          "end_pos": 6,
+          "matched_memory_term": "Deeksha",
+          "memory_id": 4,
+          "phonetic_similarity": 0.9579,
+          "context_score": 0.467,
+          "evidence_confidence": 0.92,
+          "composite_decision_score": 0.8012,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'Diksha' with personal term 'Deeksha'. Score 0.8012 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.9579,
+            "context_score": 0.467,
+            "evidence_confidence": 0.92,
+            "composite_score": 0.8012,
+            "pos_matched_triggers": [
+              "product",
+              "jira"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 1.0,
+              "soundex_match": true,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.864,
+              "raw_lev_sim": 0.714,
+              "target_phonetics": {
+                "raw": "deeksha",
+                "metaphone": "TKX",
+                "soundex": "D200",
+                "normalized": "diksa"
+              },
+              "candidate_phonetics": {
+                "raw": "diksha",
+                "metaphone": "TKX",
+                "soundex": "D200",
+                "normalized": "diksa"
+              },
+              "composite_score": 0.9579
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 4,
+            "canonical_term": "Deeksha",
+            "category": "person",
+            "phonetic_code": "TKX",
+            "normalized_phonetic": "diksa",
+            "soundex_code": "D200",
+            "aliases": [
+              "Diksha",
+              "Deekshya"
+            ],
+            "confidence_score": 0.92,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.220700",
+            "created_at": "2026-09-09T16:24:52.220702",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "product",
+              "roadmap",
+              "sync",
+              "jira",
+              "call",
+              "designer"
+            ],
+            "negative_contexts": [
+              "ceremony",
+              "initiation",
+              "spiritual"
+            ],
+            "is_active": true,
+            "notes": "Product Manager name"
+          }
+        ]
+      },
+      "notes": "Phonetic similarity between Diksha and Deeksha with product/jira context."
+    },
+    {
+      "id": "CASE-06",
+      "category": "technical_jargon_replacement",
+      "description": "Machine learning framework misrecognized as common words",
+      "asr_input": "we trained our model using pie torch on multi gpu cluster",
+      "formatted_input": "We trained our model using pie torch on multi GPU cluster.",
+      "expected_output": "We trained our model using PyTorch on multi GPU cluster.",
+      "actual_output": "We trained our model using PyTorch on multi GPU cluster.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 3.009,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "pie torch",
+          "start_pos": 5,
+          "end_pos": 6,
+          "matched_memory_term": "PyTorch",
+          "memory_id": 5,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.4,
+          "evidence_confidence": 0.94,
+          "composite_decision_score": 0.7825,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'pie torch' with personal term 'PyTorch'. Score 0.7825 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.4,
+            "evidence_confidence": 0.94,
+            "composite_score": 0.7825,
+            "pos_matched_triggers": [
+              "gpu",
+              "model"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.94,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.667,
+              "jaro_winkler": 0.857,
+              "raw_lev_sim": 0.667,
+              "target_phonetics": {
+                "raw": "pytorch",
+                "metaphone": "PTRX",
+                "soundex": "P362",
+                "normalized": "pytorch"
+              },
+              "candidate_phonetics": {
+                "raw": "pie torch",
+                "metaphone": "P TRX",
+                "soundex": "P000 T620",
+                "normalized": "pie torch"
+              },
+              "composite_score": 0.6677
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 5,
+            "canonical_term": "PyTorch",
+            "category": "jargon",
+            "phonetic_code": "PTRX",
+            "normalized_phonetic": "pytorch",
+            "soundex_code": "P362",
+            "aliases": [
+              "pie torch",
+              "py torch",
+              "pie torch"
+            ],
+            "confidence_score": 0.94,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.225112",
+            "created_at": "2026-09-09T16:24:52.225114",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "training",
+              "cuda",
+              "gpu",
+              "model",
+              "tensor",
+              "backprop",
+              "deep learning",
+              "framework"
+            ],
+            "negative_contexts": [
+              "baking",
+              "oven",
+              "apple pie",
+              "recipe",
+              "flashlight",
+              "fire torch"
+            ],
+            "is_active": true,
+            "notes": "ML Framework. Suppress in culinary or campfire contexts."
+          }
+        ]
+      },
+      "notes": "Multi-word alias 'pie torch' converted to 'PyTorch' in GPU/model context."
+    },
+    {
+      "id": "CASE-07",
+      "category": "negative_context_suppression",
+      "description": "Culinary context mentioning pie and a torch should not turn into PyTorch",
+      "asr_input": "baking an apple pie with a culinary torch in the oven",
+      "formatted_input": "Baking an apple pie with a culinary torch in the oven.",
+      "expected_output": "Baking an apple pie with a culinary torch in the oven.",
+      "actual_output": "Baking an apple pie with a culinary torch in the oven.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 2.684,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "torch",
+          "start_pos": 7,
+          "end_pos": 7,
+          "matched_memory_term": "PyTorch",
+          "memory_id": 5,
+          "phonetic_similarity": 0.6869,
+          "context_score": -1.0,
+          "evidence_confidence": 0.94,
+          "composite_decision_score": 0.0,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate PyTorch was deliberately suppressed: Suppressed: Negative context detected (baking, oven, apple pie) (score 0.0 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.6869,
+            "context_score": -1.0,
+            "evidence_confidence": 0.94,
+            "composite_score": 0.0,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [
+              "baking",
+              "oven",
+              "apple pie"
+            ],
+            "is_known_alias": false,
+            "reason": "Suppressed: Negative context detected (baking, oven, apple pie)",
+            "phonetic_details": {
+              "metaphone_sim": 0.917,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.714,
+              "jaro_winkler": 0.905,
+              "raw_lev_sim": 0.714,
+              "target_phonetics": {
+                "raw": "pytorch",
+                "metaphone": "PTRX",
+                "soundex": "P362",
+                "normalized": "pytorch"
+              },
+              "candidate_phonetics": {
+                "raw": "torch",
+                "metaphone": "TRX",
+                "soundex": "T620",
+                "normalized": "torch"
+              },
+              "composite_score": 0.6869
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 5,
+            "canonical_term": "PyTorch",
+            "category": "jargon",
+            "phonetic_code": "PTRX",
+            "normalized_phonetic": "pytorch",
+            "soundex_code": "P362",
+            "aliases": [
+              "pie torch",
+              "py torch",
+              "pie torch"
+            ],
+            "confidence_score": 0.94,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.225112",
+            "created_at": "2026-09-09T16:24:52.225114",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "training",
+              "cuda",
+              "gpu",
+              "model",
+              "tensor",
+              "backprop",
+              "deep learning",
+              "framework"
+            ],
+            "negative_contexts": [
+              "baking",
+              "oven",
+              "apple pie",
+              "recipe",
+              "flashlight",
+              "fire torch"
+            ],
+            "is_active": true,
+            "notes": "ML Framework. Suppress in culinary or campfire contexts."
+          }
+        ]
+      },
+      "notes": "Negative context 'pie', 'oven', 'baking' suppresses ML framework replacement."
+    },
+    {
+      "id": "CASE-08",
+      "category": "cloud_infrastructure_product",
+      "description": "Spoken acronym/phonetic for Kubernetes cluster deployment",
+      "asr_input": "deploy the docker container to the coober nettees cluster",
+      "formatted_input": "Deploy the Docker container to the coober nettees cluster.",
+      "expected_output": "Deploy the Docker container to the Kubernetes cluster.",
+      "actual_output": "Deploy the Docker container to the Kubernetes cluster.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 1.926,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "coober nettees",
+          "start_pos": 6,
+          "end_pos": 7,
+          "matched_memory_term": "Kubernetes",
+          "memory_id": 7,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.5,
+          "evidence_confidence": 0.93,
+          "composite_decision_score": 0.81,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'coober nettees' with personal term 'Kubernetes'. Score 0.81 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.5,
+            "evidence_confidence": 0.93,
+            "composite_score": 0.81,
+            "pos_matched_triggers": [
+              "cluster",
+              "deploy",
+              "docker"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.967,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.727,
+              "jaro_winkler": 0.79,
+              "raw_lev_sim": 0.571,
+              "target_phonetics": {
+                "raw": "kubernetes",
+                "metaphone": "KBRNTS",
+                "soundex": "K165",
+                "normalized": "kubernetes"
+              },
+              "candidate_phonetics": {
+                "raw": "coober nettees",
+                "metaphone": "KBR NTS",
+                "soundex": "C160 N320",
+                "normalized": "cuber netis"
+              },
+              "composite_score": 0.6807
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 7,
+            "canonical_term": "Kubernetes",
+            "category": "jargon",
+            "phonetic_code": "KBRNTS",
+            "normalized_phonetic": "kubernetes",
+            "soundex_code": "K165",
+            "aliases": [
+              "coober nettees",
+              "k eights",
+              "k8s"
+            ],
+            "confidence_score": 0.93,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.231812",
+            "created_at": "2026-09-09T16:24:52.231814",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "cluster",
+              "pod",
+              "nodes",
+              "deploy",
+              "docker",
+              "helm",
+              "devops",
+              "cloud"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Container orchestration system"
+          }
+        ]
+      },
+      "notes": "Phonetic matching for 'coober nettees' -> Kubernetes."
+    },
+    {
+      "id": "CASE-09",
+      "category": "database_service_replacement",
+      "description": "Misrecognized developer tool name in backend database context",
+      "asr_input": "we migrated our postgres tables to super base",
+      "formatted_input": "We migrated our postgres tables to super base.",
+      "expected_output": "We migrated our postgres tables to Supabase.",
+      "actual_output": "We migrated our postgres tables to Supabase.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 1.768,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "super base.",
+          "start_pos": 6,
+          "end_pos": 7,
+          "matched_memory_term": "Supabase",
+          "memory_id": 6,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.314,
+          "evidence_confidence": 0.9,
+          "composite_decision_score": 0.7467,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'super base' with personal term 'Supabase'. Score 0.7467 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.314,
+            "evidence_confidence": 0.9,
+            "composite_score": 0.7467,
+            "pos_matched_triggers": [
+              "postgres"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.911,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.7,
+              "jaro_winkler": 0.867,
+              "raw_lev_sim": 0.7,
+              "target_phonetics": {
+                "raw": "supabase",
+                "metaphone": "SPBS",
+                "soundex": "S112",
+                "normalized": "supabase"
+              },
+              "candidate_phonetics": {
+                "raw": "super base",
+                "metaphone": "SPR BS",
+                "soundex": "S160 B200",
+                "normalized": "super base"
+              },
+              "composite_score": 0.6751
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 6,
+            "canonical_term": "Supabase",
+            "category": "product",
+            "phonetic_code": "SPBS",
+            "normalized_phonetic": "supabase",
+            "soundex_code": "S112",
+            "aliases": [
+              "super base",
+              "superbase"
+            ],
+            "confidence_score": 0.9,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.228568",
+            "created_at": "2026-09-09T16:24:52.228570",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "database",
+              "postgres",
+              "auth",
+              "backend",
+              "table",
+              "sql",
+              "migration"
+            ],
+            "negative_contexts": [
+              "baseball",
+              "superhero",
+              "fortress",
+              "military base"
+            ],
+            "is_active": true,
+            "notes": "Backend DB service"
+          }
+        ]
+      },
+      "notes": "'super base' -> 'Supabase' with postgres/migration context."
+    },
+    {
+      "id": "CASE-10",
+      "category": "organization_and_product_cooccurrence",
+      "description": "Company name and proprietary voice product combined sentence",
+      "asr_input": "sarwam released a new version of kiwi for indic speech",
+      "formatted_input": "Sarwam released a new version of kiwi for Indic speech.",
+      "expected_output": "Sarvam released a new version of Kivi for Indic speech.",
+      "actual_output": "Sarvam released a new version of Kivi for Indic speech.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 2.644,
+      "interventions_count": 2,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "Sarwam",
+          "start_pos": 0,
+          "end_pos": 0,
+          "matched_memory_term": "Sarvam",
+          "memory_id": 3,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.314,
+          "evidence_confidence": 0.99,
+          "composite_decision_score": 0.7692,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'Sarwam' with personal term 'Sarvam'. Score 0.7692 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.314,
+            "evidence_confidence": 0.99,
+            "composite_score": 0.7692,
+            "pos_matched_triggers": [
+              "indic"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.867,
+              "soundex_match": false,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.922,
+              "raw_lev_sim": 0.833,
+              "target_phonetics": {
+                "raw": "sarvam",
+                "metaphone": "SRFM",
+                "soundex": "S615",
+                "normalized": "sarvam"
+              },
+              "candidate_phonetics": {
+                "raw": "sarwam",
+                "metaphone": "SRWM",
+                "soundex": "S650",
+                "normalized": "sarvam"
+              },
+              "composite_score": 0.7856
+            }
+          }
+        },
+        {
+          "original_span": "kiwi",
+          "start_pos": 6,
+          "end_pos": 6,
+          "matched_memory_term": "Kivi",
+          "memory_id": 2,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.289,
+          "evidence_confidence": 0.98,
+          "composite_decision_score": 0.7592,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'kiwi' with personal term 'Kivi'. Score 0.7592 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.289,
+            "evidence_confidence": 0.98,
+            "composite_score": 0.7592,
+            "pos_matched_triggers": [
+              "speech"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.667,
+              "soundex_match": false,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.867,
+              "raw_lev_sim": 0.75,
+              "target_phonetics": {
+                "raw": "kivi",
+                "metaphone": "KF",
+                "soundex": "K100",
+                "normalized": "kivi"
+              },
+              "candidate_phonetics": {
+                "raw": "kiwi",
+                "metaphone": "KW",
+                "soundex": "K000",
+                "normalized": "kivi"
+              },
+              "composite_score": 0.7117
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 2,
+            "canonical_term": "Kivi",
+            "category": "product",
+            "phonetic_code": "KF",
+            "normalized_phonetic": "kivi",
+            "soundex_code": "K100",
+            "aliases": [
+              "Kiwi",
+              "Keevi",
+              "Kivee"
+            ],
+            "confidence_score": 0.98,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.214152",
+            "created_at": "2026-09-09T16:24:52.214154",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "sarvam",
+              "service",
+              "speech",
+              "transcribe",
+              "voice",
+              "model",
+              "app",
+              "dictionary",
+              "dictation"
+            ],
+            "negative_contexts": [
+              "fruit",
+              "eat",
+              "slice",
+              "salad",
+              "smoothie",
+              "supermarket",
+              "grocery",
+              "bird",
+              "new zealand"
+            ],
+            "is_active": true,
+            "notes": "Sarvam's speech product name. Never substitute when discussing the fruit or bird."
+          },
+          {
+            "id": 3,
+            "canonical_term": "Sarvam",
+            "category": "organization",
+            "phonetic_code": "SRFM",
+            "normalized_phonetic": "sarvam",
+            "soundex_code": "S615",
+            "aliases": [
+              "Serve hum",
+              "Sarwam",
+              "Sarvamm"
+            ],
+            "confidence_score": 0.99,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.217638",
+            "created_at": "2026-09-09T16:24:52.217640",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "ai",
+              "kivi",
+              "indic",
+              "models",
+              "company",
+              "bangalore",
+              "service"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Company name"
+          }
+        ]
+      },
+      "notes": "Sarwam -> Sarvam, kiwi -> Kivi."
+    },
+    {
+      "id": "CASE-11",
+      "category": "neutral_generic_speech",
+      "description": "Ordinary everyday sentence with no personal entities or relevant triggers",
+      "asr_input": "the weather today in bangalore is quite pleasant and windy",
+      "formatted_input": "The weather today in Bangalore is quite pleasant and windy.",
+      "expected_output": "The weather today in Bangalore is quite pleasant and windy.",
+      "actual_output": "The weather today in Bangalore is quite pleasant and windy.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 2.371,
+      "interventions_count": 0,
+      "suppressed_count": 0,
+      "traces": [],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": []
+      },
+      "notes": "Must pass through cleanly without any hallucinated or false interventions."
+    },
+    {
+      "id": "CASE-12",
+      "category": "casing_and_punctuation_preservation",
+      "description": "Entity at the beginning of an interrogative sentence",
+      "asr_input": "aditya, did you already push the pr to the repository?",
+      "formatted_input": "Aditya, did you already push the PR to the repository?",
+      "expected_output": "Aaditya, did you already push the PR to the repository?",
+      "actual_output": "Aaditya, did you already push the PR to the repository?",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 3.077,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "Aditya,",
+          "start_pos": 0,
+          "end_pos": 0,
+          "matched_memory_term": "Aaditya",
+          "memory_id": 1,
+          "phonetic_similarity": 0.9564,
+          "context_score": 0.3,
+          "evidence_confidence": 0.95,
+          "composite_decision_score": 0.7579,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'Aditya' with personal term 'Aaditya'. Score 0.7579 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.9564,
+            "context_score": 0.3,
+            "evidence_confidence": 0.95,
+            "composite_score": 0.7579,
+            "pos_matched_triggers": [
+              "pr"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.917,
+              "soundex_match": true,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.957,
+              "raw_lev_sim": 0.857,
+              "target_phonetics": {
+                "raw": "aaditya",
+                "metaphone": "TTY",
+                "soundex": "A330",
+                "normalized": "aditya"
+              },
+              "candidate_phonetics": {
+                "raw": "aditya",
+                "metaphone": "ATTY",
+                "soundex": "A330",
+                "normalized": "aditya"
+              },
+              "composite_score": 0.9564
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 1,
+            "canonical_term": "Aaditya",
+            "category": "person",
+            "phonetic_code": "TTY",
+            "normalized_phonetic": "aditya",
+            "soundex_code": "A330",
+            "aliases": [
+              "Aditya",
+              "Adithya",
+              "Aadithya"
+            ],
+            "confidence_score": 0.95,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.208427",
+            "created_at": "2026-09-09T16:24:52.208429",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "review",
+              "sarvam",
+              "service",
+              "pr",
+              "meeting",
+              "team",
+              "code",
+              "assigned"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Co-founder / Tech Lead name spelling preference"
+          }
+        ]
+      },
+      "notes": "Preserves comma and sentence casing."
+    },
+    {
+      "id": "CASE-13",
+      "category": "negative_context_suppression",
+      "description": "Supermarket grocery context mentioning kiwi and apples",
+      "asr_input": "can you buy some kiwi and bananas from the supermarket",
+      "formatted_input": "Can you buy some kiwi and bananas from the supermarket?",
+      "expected_output": "Can you buy some kiwi and bananas from the supermarket?",
+      "actual_output": "Can you buy some kiwi and bananas from the supermarket?",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 2.492,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "kiwi",
+          "start_pos": 4,
+          "end_pos": 4,
+          "matched_memory_term": "Kivi",
+          "memory_id": 2,
+          "phonetic_similarity": 0.95,
+          "context_score": -1.0,
+          "evidence_confidence": 0.98,
+          "composite_decision_score": 0.0,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Kivi was deliberately suppressed: Suppressed: Negative context detected (supermarket) (score 0.0 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": -1.0,
+            "evidence_confidence": 0.98,
+            "composite_score": 0.0,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [
+              "supermarket"
+            ],
+            "is_known_alias": true,
+            "reason": "Suppressed: Negative context detected (supermarket)",
+            "phonetic_details": {
+              "metaphone_sim": 0.667,
+              "soundex_match": false,
+              "norm_phonetic_sim": 1.0,
+              "jaro_winkler": 0.867,
+              "raw_lev_sim": 0.75,
+              "target_phonetics": {
+                "raw": "kivi",
+                "metaphone": "KF",
+                "soundex": "K100",
+                "normalized": "kivi"
+              },
+              "candidate_phonetics": {
+                "raw": "kiwi",
+                "metaphone": "KW",
+                "soundex": "K000",
+                "normalized": "kivi"
+              },
+              "composite_score": 0.7117
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 2,
+            "canonical_term": "Kivi",
+            "category": "product",
+            "phonetic_code": "KF",
+            "normalized_phonetic": "kivi",
+            "soundex_code": "K100",
+            "aliases": [
+              "Kiwi",
+              "Keevi",
+              "Kivee"
+            ],
+            "confidence_score": 0.98,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.214152",
+            "created_at": "2026-09-09T16:24:52.214154",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "sarvam",
+              "service",
+              "speech",
+              "transcribe",
+              "voice",
+              "model",
+              "app",
+              "dictionary",
+              "dictation"
+            ],
+            "negative_contexts": [
+              "fruit",
+              "eat",
+              "slice",
+              "salad",
+              "smoothie",
+              "supermarket",
+              "grocery",
+              "bird",
+              "new zealand"
+            ],
+            "is_active": true,
+            "notes": "Sarvam's speech product name. Never substitute when discussing the fruit or bird."
+          }
+        ]
+      },
+      "notes": "'supermarket' and 'buy' triggers negative context for Kivi."
+    },
+    {
+      "id": "CASE-14",
+      "category": "organization_recognition",
+      "description": "Spoken company name in startup and indic language context",
+      "asr_input": "serve hum is building speech AI models for India",
+      "formatted_input": "Serve hum is building speech AI models for India.",
+      "expected_output": "Sarvam is building speech AI models for India.",
+      "actual_output": "Sarvam is building speech AI models for India.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 1.865,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "Serve hum",
+          "start_pos": 0,
+          "end_pos": 1,
+          "matched_memory_term": "Sarvam",
+          "memory_id": 3,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.429,
+          "evidence_confidence": 0.99,
+          "composite_decision_score": 0.8037,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'Serve hum' with personal term 'Sarvam'. Score 0.8037 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.429,
+            "evidence_confidence": 0.99,
+            "composite_score": 0.8037,
+            "pos_matched_triggers": [
+              "ai",
+              "models"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.922,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.444,
+              "jaro_winkler": 0.733,
+              "raw_lev_sim": 0.444,
+              "target_phonetics": {
+                "raw": "sarvam",
+                "metaphone": "SRFM",
+                "soundex": "S615",
+                "normalized": "sarvam"
+              },
+              "candidate_phonetics": {
+                "raw": "serve hum",
+                "metaphone": "SRF HM",
+                "soundex": "S610 H500",
+                "normalized": "serve hum"
+              },
+              "composite_score": 0.55
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 3,
+            "canonical_term": "Sarvam",
+            "category": "organization",
+            "phonetic_code": "SRFM",
+            "normalized_phonetic": "sarvam",
+            "soundex_code": "S615",
+            "aliases": [
+              "Serve hum",
+              "Sarwam",
+              "Sarvamm"
+            ],
+            "confidence_score": 0.99,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.217638",
+            "created_at": "2026-09-09T16:24:52.217640",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "ai",
+              "kivi",
+              "indic",
+              "models",
+              "company",
+              "bangalore",
+              "service"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Company name"
+          }
+        ]
+      },
+      "notes": "Serve hum phonetic match to Sarvam with speech/AI context."
+    },
+    {
+      "id": "CASE-15",
+      "category": "neutral_generic_speech",
+      "description": "Conversation about general cooking with no entity matches",
+      "asr_input": "we prepared some pasta with tomato sauce and basil",
+      "formatted_input": "We prepared some pasta with tomato sauce and basil.",
+      "expected_output": "We prepared some pasta with tomato sauce and basil.",
+      "actual_output": "We prepared some pasta with tomato sauce and basil.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 2.154,
+      "interventions_count": 0,
+      "suppressed_count": 0,
+      "traces": [],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": []
+      },
+      "notes": "Zero false interventions expected."
+    },
+    {
+      "id": "CASE-16",
+      "category": "database_negative_space",
+      "description": "Baseball discussion mentioning a super base runner",
+      "asr_input": "the player is a super base runner in the baseball tournament",
+      "formatted_input": "The player is a super base runner in the baseball tournament.",
+      "expected_output": "The player is a super base runner in the baseball tournament.",
+      "actual_output": "The player is a super base runner in the baseball tournament.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 2.832,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "super base",
+          "start_pos": 4,
+          "end_pos": 5,
+          "matched_memory_term": "Supabase",
+          "memory_id": 6,
+          "phonetic_similarity": 0.95,
+          "context_score": -1.0,
+          "evidence_confidence": 0.9,
+          "composite_decision_score": 0.0,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Supabase was deliberately suppressed: Suppressed: Negative context detected (baseball) (score 0.0 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": -1.0,
+            "evidence_confidence": 0.9,
+            "composite_score": 0.0,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [
+              "baseball"
+            ],
+            "is_known_alias": true,
+            "reason": "Suppressed: Negative context detected (baseball)",
+            "phonetic_details": {
+              "metaphone_sim": 0.911,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.7,
+              "jaro_winkler": 0.867,
+              "raw_lev_sim": 0.7,
+              "target_phonetics": {
+                "raw": "supabase",
+                "metaphone": "SPBS",
+                "soundex": "S112",
+                "normalized": "supabase"
+              },
+              "candidate_phonetics": {
+                "raw": "super base",
+                "metaphone": "SPR BS",
+                "soundex": "S160 B200",
+                "normalized": "super base"
+              },
+              "composite_score": 0.6751
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 8,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil"
+        ],
+        "relevant_memories": [
+          {
+            "id": 6,
+            "canonical_term": "Supabase",
+            "category": "product",
+            "phonetic_code": "SPBS",
+            "normalized_phonetic": "supabase",
+            "soundex_code": "S112",
+            "aliases": [
+              "super base",
+              "superbase"
+            ],
+            "confidence_score": 0.9,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.228568",
+            "created_at": "2026-09-09T16:24:52.228570",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "database",
+              "postgres",
+              "auth",
+              "backend",
+              "table",
+              "sql",
+              "migration"
+            ],
+            "negative_contexts": [
+              "baseball",
+              "superhero",
+              "fortress",
+              "military base"
+            ],
+            "is_active": true,
+            "notes": "Backend DB service"
+          }
+        ]
+      },
+      "notes": "'baseball' triggers negative context for Supabase."
+    }
+  ]
+}

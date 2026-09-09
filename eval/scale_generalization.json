@@ -1,0 +1,1149 @@
+{
+  "_readme": "Suite 4/4 - large-scale generalization corpus. 49 entities that appear in NO other data file in this repository and in no part of the assignment brief. Each is taught live during the run through the same MemoryEngine paths a real correction or dictionary import uses, then tested on sentence templates never used for teaching and on mishearings never shown to the system. Case families are graded SEPARATELY and never averaged into one number - see eval/scale_engine.py for what each family means.",
+  "templates": {
+    "person_positive": [
+      "can you ask {a} about the {c1} {c2} today",
+      "i will loop in {a} on the {c1} and the {c2}",
+      "{a} said the {c1} {c2} is ready for review"
+    ],
+    "thing_positive": [
+      "can you check the {c1} {c2} on {a} today",
+      "we moved the {c1} and the {c2} over to {a}",
+      "{a} is blocking the {c1} {c2} work"
+    ],
+    "person_weak": [
+      "is {a} free tomorrow",
+      "i saw {a} yesterday"
+    ],
+    "thing_weak": [
+      "we should talk about {a} tomorrow",
+      "i mentioned {a} yesterday"
+    ],
+    "person_categories": [
+      "person"
+    ]
+  },
+  "controls": {
+    "_note": "Ordinary sentences containing no target entity. Deterministic (fixed seed); any sentence colliding with an entity, alias or homophone word is discarded.",
+    "count": 220,
+    "seed": 20260909,
+    "templates": [
+      "the {n1} was {adj} so we stayed home all {n2}",
+      "she bought a new {n1} for the {n2} last weekend",
+      "we walked to the {n1} and then took the {n2} back",
+      "my {n1} keeps making a strange noise every {n2}",
+      "he forgot to bring the {n1} to the {n2} again",
+      "there is a {adj} {n1} sitting on the {n2}",
+      "they cancelled the {n1} because of the {adj} {n2}",
+      "i need to return this {n1} before the {n2} closes",
+      "the {adj} {n1} near the {n2} is worth visiting",
+      "put the {n1} back in the {n2} when you are done"
+    ],
+    "nouns": [
+      "weather",
+      "kitchen",
+      "bicycle",
+      "garden",
+      "market",
+      "bus",
+      "letter",
+      "window",
+      "blanket",
+      "kettle",
+      "umbrella",
+      "staircase",
+      "balcony",
+      "mattress",
+      "curtain",
+      "sandwich",
+      "lantern",
+      "wardrobe",
+      "fountain",
+      "pavement",
+      "trolley",
+      "orchard",
+      "harbour",
+      "meadow",
+      "cottage"
+    ],
+    "adjectives": [
+      "cold",
+      "noisy",
+      "crowded",
+      "empty",
+      "cheerful",
+      "damp",
+      "quiet",
+      "expensive",
+      "narrow",
+      "rusty"
+    ]
+  },
+  "adversarial": [
+    {
+      "entity": "Temporal",
+      "near_miss": "temporary",
+      "sentence": "the workflow used a temporary worker to retry the job"
+    },
+    {
+      "entity": "Ansible",
+      "near_miss": "sensible",
+      "sentence": "the playbook has a sensible default for every inventory task"
+    },
+    {
+      "entity": "Terraform",
+      "near_miss": "transform",
+      "sentence": "we transform the state before we apply the provision plan"
+    },
+    {
+      "entity": "Weaviate",
+      "near_miss": "deviate",
+      "sentence": "the vector embeddings deviate from the schema we agreed on"
+    },
+    {
+      "entity": "LangChain",
+      "near_miss": "long chain",
+      "sentence": "the agent prompt used a long chain of tools in one retriever"
+    },
+    {
+      "entity": "Airbyte",
+      "near_miss": "airtight",
+      "sentence": "the connector sync needs an airtight source contract"
+    },
+    {
+      "entity": "Deno",
+      "near_miss": "denote",
+      "sentence": "the runtime permissions denote a typescript module boundary"
+    },
+    {
+      "entity": "Sentry",
+      "near_miss": "century",
+      "sentence": "the errors in monitoring go back almost a century of releases"
+    },
+    {
+      "entity": "Clickhouse",
+      "near_miss": "clubhouse",
+      "sentence": "we ran the olap query from the clubhouse over a shared shard"
+    },
+    {
+      "entity": "Jaeger",
+      "near_miss": "eager",
+      "sentence": "the distributed tracing sampler is eager about every span"
+    },
+    {
+      "entity": "Mikhail",
+      "near_miss": "michael",
+      "sentence": "michael patched the kernel driver last night"
+    },
+    {
+      "entity": "Kritika",
+      "near_miss": "critical",
+      "sentence": "the support tickets flagged a critical bug this morning"
+    },
+    {
+      "entity": "Madhuri",
+      "near_miss": "mandatory",
+      "sentence": "the legal contract review is mandatory before signing"
+    },
+    {
+      "entity": "Gaurav",
+      "near_miss": "grave",
+      "sentence": "the security audit turned up a grave issue in production"
+    },
+    {
+      "entity": "Devika",
+      "near_miss": "device",
+      "sentence": "the marketing campaign targets every device we support"
+    },
+    {
+      "entity": "Ananya",
+      "near_miss": "anyway",
+      "sentence": "the oncall rotation is covered anyway so do not worry"
+    },
+    {
+      "entity": "Anirudh",
+      "near_miss": "unheard",
+      "sentence": "the ingestion latency complaint went unheard for a week"
+    },
+    {
+      "entity": "Shreyas",
+      "near_miss": "shreds",
+      "sentence": "the sprint backlog was torn to shreds in planning"
+    },
+    {
+      "entity": "Jayanth",
+      "near_miss": "giant",
+      "sentence": "the finance invoice was a giant spreadsheet nobody opened"
+    },
+    {
+      "entity": "Harshita",
+      "near_miss": "harsh",
+      "sentence": "the recruiting interviews got harsh feedback from the panel"
+    },
+    {
+      "entity": "Niamh",
+      "near_miss": "name",
+      "sentence": "the localization strings still need a name for the key"
+    },
+    {
+      "entity": "Xavier",
+      "near_miss": "savior",
+      "sentence": "the platform runtime patch was a savior for the release"
+    },
+    {
+      "entity": "Zomato",
+      "near_miss": "tomato",
+      "sentence": "the delivery partner order had tomato soup in it"
+    },
+    {
+      "entity": "Caoimhe",
+      "near_miss": "coffee",
+      "sentence": "we ran the accessibility checks over coffee this morning"
+    },
+    {
+      "entity": "Yashwant",
+      "near_miss": "you want",
+      "sentence": "the sales quota can be whatever you want it to be"
+    },
+    {
+      "entity": "Rakesh",
+      "near_miss": "rackets",
+      "sentence": "the warehouse logistics crew packed tennis rackets today"
+    }
+  ],
+  "entities": [
+    {
+      "canonical": "Shreyas",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "shreyus",
+      "holdout_aliases": [
+        "shreyash",
+        "sreyas"
+      ],
+      "teach_tpl": "{a} owns the sprint backlog",
+      "test_ctx": [
+        "sprint",
+        "backlog"
+      ]
+    },
+    {
+      "canonical": "Nandini",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "nandhini",
+      "holdout_aliases": [
+        "nandani",
+        "nundini"
+      ],
+      "teach_tpl": "{a} shared the design mockups",
+      "test_ctx": [
+        "design",
+        "mockups"
+      ]
+    },
+    {
+      "canonical": "Anirudh",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "aniruth",
+      "holdout_aliases": [
+        "anirud",
+        "aniruddh"
+      ],
+      "teach_tpl": "{a} fixed the ingestion latency",
+      "test_ctx": [
+        "ingestion",
+        "latency"
+      ]
+    },
+    {
+      "canonical": "Bhavana",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "bhawana",
+      "holdout_aliases": [
+        "bhavna",
+        "bhavanaa"
+      ],
+      "teach_tpl": "{a} rebuilt the analytics dashboard",
+      "test_ctx": [
+        "analytics",
+        "dashboard"
+      ]
+    },
+    {
+      "canonical": "Chaitanya",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "chaithanya",
+      "holdout_aliases": [
+        "chetanya",
+        "chaitanyaa"
+      ],
+      "teach_tpl": "{a} upgraded the infra cluster",
+      "test_ctx": [
+        "infra",
+        "cluster"
+      ]
+    },
+    {
+      "canonical": "Devika",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "devica",
+      "holdout_aliases": [
+        "daivika",
+        "devikaa"
+      ],
+      "teach_tpl": "{a} launched the marketing campaign",
+      "test_ctx": [
+        "marketing",
+        "campaign"
+      ]
+    },
+    {
+      "canonical": "Gaurav",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "gourav",
+      "holdout_aliases": [
+        "gaurabh",
+        "gaurau"
+      ],
+      "teach_tpl": "{a} closed the security audit",
+      "test_ctx": [
+        "security",
+        "audit"
+      ]
+    },
+    {
+      "canonical": "Harshita",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "harshitha",
+      "holdout_aliases": [
+        "harsheeta",
+        "harshitaa"
+      ],
+      "teach_tpl": "{a} scheduled the recruiting interviews",
+      "test_ctx": [
+        "recruiting",
+        "interviews"
+      ]
+    },
+    {
+      "canonical": "Jayanth",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "jayanthh",
+      "holdout_aliases": [
+        "jayant",
+        "jeyanth"
+      ],
+      "teach_tpl": "{a} approved the finance invoice",
+      "test_ctx": [
+        "finance",
+        "invoice"
+      ]
+    },
+    {
+      "canonical": "Kritika",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "krithika",
+      "holdout_aliases": [
+        "kritica",
+        "kruthika"
+      ],
+      "teach_tpl": "{a} triaged the support tickets",
+      "test_ctx": [
+        "support",
+        "tickets"
+      ]
+    },
+    {
+      "canonical": "Madhuri",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "madhury",
+      "holdout_aliases": [
+        "maduri",
+        "madhuree"
+      ],
+      "teach_tpl": "{a} reviewed the legal contract",
+      "test_ctx": [
+        "legal",
+        "contract"
+      ]
+    },
+    {
+      "canonical": "Nikhil",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "nikil",
+      "holdout_aliases": [
+        "nikhail",
+        "nikheel"
+      ],
+      "teach_tpl": "{a} shipped the mobile android build",
+      "test_ctx": [
+        "mobile",
+        "android"
+      ]
+    },
+    {
+      "canonical": "Pallavi",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "palavi",
+      "holdout_aliases": [
+        "pallavee",
+        "pallvi"
+      ],
+      "teach_tpl": "{a} edited the content blog",
+      "test_ctx": [
+        "content",
+        "blog"
+      ]
+    },
+    {
+      "canonical": "Rakesh",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "raakesh",
+      "holdout_aliases": [
+        "rakhesh",
+        "rakeysh"
+      ],
+      "teach_tpl": "{a} tracked the warehouse logistics",
+      "test_ctx": [
+        "warehouse",
+        "logistics"
+      ]
+    },
+    {
+      "canonical": "Sanjana",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "sanjna",
+      "holdout_aliases": [
+        "sanjanaa",
+        "sunjana"
+      ],
+      "teach_tpl": "{a} ran the regression suite",
+      "test_ctx": [
+        "regression",
+        "suite"
+      ]
+    },
+    {
+      "canonical": "Tanmay",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "tanmai",
+      "holdout_aliases": [
+        "thanmay",
+        "tanmaey"
+      ],
+      "teach_tpl": "{a} submitted the research paper",
+      "test_ctx": [
+        "research",
+        "paper"
+      ]
+    },
+    {
+      "canonical": "Vaishnavi",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "vaishnavee",
+      "holdout_aliases": [
+        "vaishnvi",
+        "vaishnavy"
+      ],
+      "teach_tpl": "{a} audited the labeling batch",
+      "test_ctx": [
+        "labeling",
+        "batch"
+      ]
+    },
+    {
+      "canonical": "Yashwant",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "yashwanth",
+      "holdout_aliases": [
+        "yeshwant",
+        "yashvant"
+      ],
+      "teach_tpl": "{a} hit the sales quota",
+      "test_ctx": [
+        "sales",
+        "quota"
+      ]
+    },
+    {
+      "canonical": "Ritwik",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "rithwik",
+      "holdout_aliases": [
+        "retwik",
+        "ritvik"
+      ],
+      "teach_tpl": "{a} tuned the embedding recall",
+      "test_ctx": [
+        "embedding",
+        "recall"
+      ]
+    },
+    {
+      "canonical": "Ananya",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "anania",
+      "holdout_aliases": [
+        "ananyaa",
+        "anaanya"
+      ],
+      "teach_tpl": "{a} covered the oncall rotation",
+      "test_ctx": [
+        "oncall",
+        "rotation"
+      ]
+    },
+    {
+      "canonical": "Siobhan",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "shevaun",
+      "holdout_aliases": [
+        "shavon",
+        "shivaun"
+      ],
+      "teach_tpl": "{a} joined the hiring panel",
+      "test_ctx": [
+        "hiring",
+        "panel"
+      ]
+    },
+    {
+      "canonical": "Niamh",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "neeve",
+      "holdout_aliases": [
+        "neev",
+        "niav"
+      ],
+      "teach_tpl": "{a} handles the localization strings",
+      "test_ctx": [
+        "localization",
+        "strings"
+      ]
+    },
+    {
+      "canonical": "Caoimhe",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "keeva",
+      "holdout_aliases": [
+        "kweeva",
+        "keevah"
+      ],
+      "teach_tpl": "{a} ran the accessibility checks",
+      "test_ctx": [
+        "accessibility",
+        "checks"
+      ]
+    },
+    {
+      "canonical": "Joaquin",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "wakeen",
+      "holdout_aliases": [
+        "hoaquin",
+        "joakin"
+      ],
+      "teach_tpl": "{a} signed the partnership agreement",
+      "test_ctx": [
+        "partnership",
+        "agreement"
+      ]
+    },
+    {
+      "canonical": "Xavier",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "zavier",
+      "holdout_aliases": [
+        "exavier",
+        "xaviour"
+      ],
+      "teach_tpl": "{a} maintains the platform runtime",
+      "test_ctx": [
+        "platform",
+        "runtime"
+      ]
+    },
+    {
+      "canonical": "Aoife",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "eefa",
+      "holdout_aliases": [
+        "eefah",
+        "eepha"
+      ],
+      "teach_tpl": "{a} filed the compliance report",
+      "test_ctx": [
+        "compliance",
+        "report"
+      ]
+    },
+    {
+      "canonical": "Thibault",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "teebo",
+      "holdout_aliases": [
+        "tibo",
+        "thibo"
+      ],
+      "teach_tpl": "{a} reconciled the billing ledger",
+      "test_ctx": [
+        "billing",
+        "ledger"
+      ]
+    },
+    {
+      "canonical": "Mikhail",
+      "category": "person",
+      "method": "correction",
+      "taught_alias": "mikail",
+      "holdout_aliases": [
+        "michail",
+        "mikhael"
+      ],
+      "teach_tpl": "{a} patched the kernel driver",
+      "test_ctx": [
+        "kernel",
+        "driver"
+      ]
+    },
+    {
+      "canonical": "Bazel",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "bazil",
+      "holdout_aliases": [
+        "bazzel",
+        "bayzel"
+      ],
+      "triggers": [
+        "build",
+        "cache",
+        "target",
+        "toolchain",
+        "compile",
+        "monorepo"
+      ],
+      "negatives": [
+        "pesto",
+        "herb",
+        "garden",
+        "tomato",
+        "leaves",
+        "recipe"
+      ],
+      "test_ctx": [
+        "build",
+        "cache"
+      ],
+      "homophone": {
+        "word": "basil",
+        "sentence": "i chopped fresh basil leaves for the tomato pesto recipe"
+      }
+    },
+    {
+      "canonical": "Deno",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "dino",
+      "holdout_aliases": [
+        "deeno",
+        "denoh"
+      ],
+      "triggers": [
+        "runtime",
+        "typescript",
+        "permissions",
+        "module",
+        "server"
+      ],
+      "negatives": [
+        "dinosaur",
+        "museum",
+        "fossil",
+        "jurassic",
+        "skeleton"
+      ],
+      "test_ctx": [
+        "runtime",
+        "typescript"
+      ],
+      "homophone": {
+        "word": "dino",
+        "sentence": "the museum has a huge dino fossil skeleton on display"
+      }
+    },
+    {
+      "canonical": "Redpanda",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "red panda",
+      "holdout_aliases": [
+        "redpandah",
+        "red pander"
+      ],
+      "triggers": [
+        "streaming",
+        "topic",
+        "broker",
+        "partition",
+        "consumer"
+      ],
+      "negatives": [
+        "zoo",
+        "bamboo",
+        "animal",
+        "cub",
+        "wildlife"
+      ],
+      "test_ctx": [
+        "streaming",
+        "topic"
+      ],
+      "homophone": {
+        "word": "red panda",
+        "sentence": "the zoo just got a red panda cub that eats bamboo"
+      }
+    },
+    {
+      "canonical": "Temporal",
+      "category": "jargon",
+      "method": "dictionary",
+      "taught_alias": "temporel",
+      "holdout_aliases": [
+        "temporral",
+        "tempral"
+      ],
+      "triggers": [
+        "workflow",
+        "activity",
+        "worker",
+        "retry",
+        "orchestration"
+      ],
+      "negatives": [
+        "lobe",
+        "brain",
+        "seizure",
+        "neurology",
+        "bone"
+      ],
+      "test_ctx": [
+        "workflow",
+        "activity"
+      ],
+      "homophone": {
+        "word": "temporal",
+        "sentence": "the scan showed swelling in the temporal lobe of the brain"
+      }
+    },
+    {
+      "canonical": "Sentry",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "sentri",
+      "holdout_aliases": [
+        "centry",
+        "sentree"
+      ],
+      "triggers": [
+        "errors",
+        "monitoring",
+        "trace",
+        "release",
+        "alerting"
+      ],
+      "negatives": [
+        "guard",
+        "gate",
+        "post",
+        "duty",
+        "soldier"
+      ],
+      "test_ctx": [
+        "errors",
+        "monitoring"
+      ],
+      "homophone": {
+        "word": "sentry",
+        "sentence": "a sentry stood guard at the gate through the night"
+      }
+    },
+    {
+      "canonical": "Prometheus",
+      "category": "jargon",
+      "method": "dictionary",
+      "taught_alias": "promethius",
+      "holdout_aliases": [
+        "prometheous",
+        "promitheus"
+      ],
+      "triggers": [
+        "metrics",
+        "scrape",
+        "alert",
+        "exporter",
+        "gauge"
+      ],
+      "negatives": [
+        "greek",
+        "myth",
+        "titan",
+        "legend",
+        "zeus"
+      ],
+      "test_ctx": [
+        "metrics",
+        "scrape"
+      ],
+      "homophone": {
+        "word": "prometheus",
+        "sentence": "the greek myth of prometheus and the titan fire is a legend"
+      }
+    },
+    {
+      "canonical": "Cassandra",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "casandra",
+      "holdout_aliases": [
+        "kasandra",
+        "cassandrah"
+      ],
+      "triggers": [
+        "keyspace",
+        "replication",
+        "node",
+        "compaction",
+        "cluster"
+      ],
+      "negatives": [
+        "prophecy",
+        "troy",
+        "myth",
+        "oracle",
+        "curse"
+      ],
+      "test_ctx": [
+        "keyspace",
+        "replication"
+      ],
+      "homophone": {
+        "word": "cassandra",
+        "sentence": "the prophecy of cassandra at troy became a famous curse"
+      }
+    },
+    {
+      "canonical": "Grafana",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "graphana",
+      "holdout_aliases": [
+        "grafanna",
+        "grafaana"
+      ],
+      "triggers": [
+        "dashboard",
+        "panel",
+        "datasource",
+        "chart",
+        "alerting"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "dashboard",
+        "panel"
+      ]
+    },
+    {
+      "canonical": "Clickhouse",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "click house",
+      "holdout_aliases": [
+        "clik house",
+        "clickhaus"
+      ],
+      "triggers": [
+        "olap",
+        "query",
+        "columnar",
+        "ingest",
+        "shard"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "olap",
+        "query"
+      ]
+    },
+    {
+      "canonical": "Weaviate",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "weviate",
+      "holdout_aliases": [
+        "way viate",
+        "weaveate"
+      ],
+      "triggers": [
+        "vector",
+        "embeddings",
+        "schema",
+        "hybrid",
+        "search"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "vector",
+        "embeddings"
+      ]
+    },
+    {
+      "canonical": "Airbyte",
+      "category": "product",
+      "method": "dictionary",
+      "taught_alias": "air bite",
+      "holdout_aliases": [
+        "airbight",
+        "air byte"
+      ],
+      "triggers": [
+        "connector",
+        "sync",
+        "source",
+        "destination",
+        "extract"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "connector",
+        "sync"
+      ]
+    },
+    {
+      "canonical": "LangChain",
+      "category": "jargon",
+      "method": "dictionary",
+      "taught_alias": "lang chain",
+      "holdout_aliases": [
+        "langchane",
+        "langchayn"
+      ],
+      "triggers": [
+        "agent",
+        "prompt",
+        "retriever",
+        "tool",
+        "chain"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "agent",
+        "prompt"
+      ]
+    },
+    {
+      "canonical": "Terraform",
+      "category": "jargon",
+      "method": "dictionary",
+      "taught_alias": "terra form",
+      "holdout_aliases": [
+        "tera form",
+        "terrafarm"
+      ],
+      "triggers": [
+        "provision",
+        "state",
+        "module",
+        "plan",
+        "apply"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "provision",
+        "state"
+      ]
+    },
+    {
+      "canonical": "Ansible",
+      "category": "jargon",
+      "method": "dictionary",
+      "taught_alias": "ansibul",
+      "holdout_aliases": [
+        "ansibel",
+        "ansiball"
+      ],
+      "triggers": [
+        "playbook",
+        "inventory",
+        "role",
+        "provisioning",
+        "task"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "playbook",
+        "inventory"
+      ]
+    },
+    {
+      "canonical": "Jaeger",
+      "category": "jargon",
+      "method": "dictionary",
+      "taught_alias": "yeager",
+      "holdout_aliases": [
+        "jager",
+        "yaeger"
+      ],
+      "triggers": [
+        "tracing",
+        "span",
+        "latency",
+        "distributed",
+        "sampling"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "tracing",
+        "span"
+      ]
+    },
+    {
+      "canonical": "Bengaluru",
+      "category": "place",
+      "method": "correction",
+      "taught_alias": "bengalooru",
+      "holdout_aliases": [
+        "bangaluru",
+        "bengaluroo"
+      ],
+      "teach_tpl": "the {a} office reopened",
+      "test_ctx": [
+        "office",
+        "reopened"
+      ]
+    },
+    {
+      "canonical": "Hyderabad",
+      "category": "place",
+      "method": "correction",
+      "taught_alias": "hydrabad",
+      "holdout_aliases": [
+        "haiderabad",
+        "hyderbad"
+      ],
+      "teach_tpl": "the {a} campus hosted onboarding",
+      "test_ctx": [
+        "campus",
+        "onboarding"
+      ]
+    },
+    {
+      "canonical": "Thiruvananthapuram",
+      "category": "place",
+      "method": "dictionary",
+      "taught_alias": "trivandrum",
+      "holdout_aliases": [
+        "thiruvanantapuram",
+        "tiruvananthapuram"
+      ],
+      "triggers": [
+        "office",
+        "kerala",
+        "branch",
+        "travel",
+        "flight"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "office",
+        "kerala"
+      ]
+    },
+    {
+      "canonical": "Zomato",
+      "category": "organization",
+      "method": "dictionary",
+      "taught_alias": "zomatoe",
+      "holdout_aliases": [
+        "zomaato",
+        "somato"
+      ],
+      "triggers": [
+        "delivery",
+        "partner",
+        "integration",
+        "merchant",
+        "order"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "delivery",
+        "partner"
+      ]
+    },
+    {
+      "canonical": "Razorpay",
+      "category": "organization",
+      "method": "dictionary",
+      "taught_alias": "razor pay",
+      "holdout_aliases": [
+        "rasorpay",
+        "razerpay"
+      ],
+      "triggers": [
+        "payments",
+        "gateway",
+        "settlement",
+        "refund",
+        "webhook"
+      ],
+      "negatives": [],
+      "test_ctx": [
+        "payments",
+        "gateway"
+      ]
+    },
+    {
+      "canonical": "Freshworks",
+      "category": "organization",
+      "method": "correction",
+      "taught_alias": "fresh works",
+      "holdout_aliases": [
+        "freshwerks",
+        "freshworkz"
+      ],
+      "teach_tpl": "the {a} crm renewal",
+      "test_ctx": [
+        "crm",
+        "renewal"
+      ]
+    }
+  ]
+}

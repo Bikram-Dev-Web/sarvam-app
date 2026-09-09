@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Kivi is an inspectable word-level phonetic memory system for speech transcripts.">
+  <title>Kivi | Phonetic Memory</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="icon-waveform" viewBox="0 0 24 24"><path d="M3 12h2m2-5v10m3-14v18m3-14v10m3-7v4m3-2h2"/></symbol>
+    <symbol id="icon-transcript" viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6z"/><path d="M14 3v4h4M9 11h6M9 15h6"/></symbol>
+    <symbol id="icon-observe" viewBox="0 0 24 24"><path d="M4 20h4l11-11a2.8 2.8 0 0 0-4-4L4 16zM13.5 6.5l4 4M12 20h8"/></symbol>
+    <symbol id="icon-memory" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7" ry="3"/><path d="M5 5v7c0 1.7 3.1 3 7 3s7-1.3 7-3V5M5 12v7c0 1.7 3.1 3 7 3s7-1.3 7-3v-7"/></symbol>
+    <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 20V10h4v10M10 20V4h4v16M16 20v-7h4v7M3 20h18"/></symbol>
+    <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M4 8V3m0 5h5M5.5 8a8 8 0 1 1-1 7"/></symbol>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 4 3 20h18zM12 9v5M12 17h.01"/></symbol>
+    <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 3h6l1 4H8zM7 7l1 14h8l1-14M10 11v6M14 11v6"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+  </svg>
+
+  <header class="navbar">
+    <a class="nav-brand" href="#" aria-label="Kivi home">
+      <span class="brand-mark" aria-hidden="true"><svg class="icon"><use href="#icon-waveform"></use></svg></span>
+      <span class="brand-title">kivi</span>
+      <span class="brand-sub">phonetic memory</span>
+    </a>
+    <nav class="nav-tabs" aria-label="Workspace sections">
+      <button class="nav-tab active" data-tab="studio-tab" aria-selected="true"><svg class="icon"><use href="#icon-transcript"></use></svg><span>Studio</span></button>
+      <button class="nav-tab" data-tab="learn-tab" aria-selected="false"><svg class="icon"><use href="#icon-observe"></use></svg><span>Observe</span></button>
+      <button class="nav-tab" data-tab="memory-tab" aria-selected="false"><svg class="icon"><use href="#icon-memory"></use></svg><span>Memory</span><span id="nav-mem-count" class="nav-count">0</span></button>
+      <button class="nav-tab" data-tab="eval-tab" aria-selected="false"><svg class="icon"><use href="#icon-chart"></use></svg><span>Evaluate</span></button>
+    </nav>
+    <button id="btn-reset-system" class="btn btn-quiet" title="Restore the standard demonstration memory"><svg class="icon"><use href="#icon-reset"></use></svg><span>Reset</span></button>
+  </header>
+
+  <main class="main-container">
+    <section id="studio-tab" class="tab-content active">
+      <header class="page-heading">
+        <p class="eyebrow">Transcript pipeline</p>
+        <h1>Personal terms, resolved with context.</h1>
+        <p class="page-lede">Compare raw speech, formatted text, and the final memory-aware transcript. Every intervention stays visible and accountable.</p>
+      </header>
+      <div class="studio-layout">
+        <div class="panel surface-card studio-input-panel">
+          <div class="panel-header"><div><span class="panel-index">01</span><h2>Source transcript</h2></div><span class="hint-pill">Input</span></div>
+          <div class="preset-selector-group">
+            <label for="scenario-preset">Demonstration scenario</label>
+            <select id="scenario-preset" class="form-select">
+              <option value="custom">Choose a custom scenario</option>
+              <option value="brief-core">Assignment brief: Aditya → Aaditya, Kiwi → Kivi</option>
+              <option value="homophone-fruit">Negative space: kiwi fruit</option>
+              <option value="homophone-kneel">Negative space: kneel on the floor</option>
+              <option value="person-neil">Person entity: call with Neil</option>
+              <option value="indian-deeksha">Indian name: Diksha → Deeksha</option>
+              <option value="jargon-pytorch">Technical term: pie torch → PyTorch</option>
+              <option value="jargon-pie-suppress">Negative space: pie and culinary torch</option>
+              <option value="infra-k8s">Infrastructure: coober nettees → Kubernetes</option>
+              <option value="db-supabase">Database: super base → Supabase</option>
+              <option value="clean-neutral">Clean pass: Bangalore weather</option>
+            </select>
+          </div>
+          <div class="input-field-group">
+            <label for="asr-input"><strong>Level 1 · ASR output</strong><span class="field-desc">Raw acoustic text stream</span></label>
+            <textarea id="asr-input" rows="3" class="form-textarea" placeholder="ask aditya to review the sarvam kiwi service"></textarea>
+          </div>
+          <div class="input-field-group">
+            <label for="formatted-input"><strong>Level 2 · Formatted output</strong><span class="field-desc">Punctuated speech, before personal memory</span></label>
+            <textarea id="formatted-input" rows="3" class="form-textarea" placeholder="Ask Aditya to review the Sarvam Kiwi service."></textarea>
+          </div>
+          <div class="threshold-slider-group">
+            <div class="slider-header"><label for="confidence-threshold">Confidence threshold</label><output id="threshold-val" class="threshold-badge">0.65</output></div>
+            <input type="range" id="confidence-threshold" min="0.30" max="0.95" step="0.05" value="0.65" class="slider">
+            <small class="slider-hint">Higher values make interventions more conservative.</small>
+          </div>
+          <button id="btn-process-transcript" class="btn btn-primary btn-block"><span>Resolve transcript</span><svg class="icon"><use href="#icon-arrow"></use></svg></button>
+        </div>
+
+        <div class="panel surface-card studio-output-panel">
+          <div class="panel-header output-panel-header">
+            <div><span class="panel-index">02</span><h2>Resolved transcript</h2></div>
+            <div class="metrics-pill" id="processing-stats" hidden><span id="stat-latency">0 ms</span><span id="stat-interventions">0 interventions</span><span id="stat-suppressions">0 suppressed</span></div>
+          </div>
+          <div class="output-label">Level 3 · Memory-aware output</div>
+          <div class="output-box" id="memory-aware-box" aria-live="polite"><div class="output-placeholder">Select a scenario or resolve the current transcript to inspect the result.</div></div>
+          <div class="traces-section">
+            <div class="traces-header"><div><span class="panel-index">03</span><h3>Decision ledger</h3></div><span class="traces-sub">Evidence behind each intervention</span></div>
+            <div id="traces-list" class="traces-list"><div class="no-traces-message">Awaiting transcript resolution.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="learn-tab" class="tab-content">
+      <header class="page-heading">
+        <p class="eyebrow">Observation hub</p><h1>Teach the terms that matter.</h1>
+        <p class="page-lede">Learn from edits, add explicit vocabulary, and record negative evidence without hiding how the memory changes.</p>
+      </header>
+      <div class="learn-grid">
+        <div class="panel surface-card">
+          <div class="panel-header"><div><span class="panel-index">A</span><h2>Learn from a correction</h2></div><span class="badge badge-success">Dynamic</span></div>
+          <p class="panel-desc">Compare the original and corrected transcript to extract phonetic substitutions and their surrounding context.</p>
+          <form id="form-learn-correction">
+            <div class="input-field-group"><label for="learn-orig-text">Original transcript</label><textarea id="learn-orig-text" class="form-textarea" rows="2" placeholder="Ask Aditya to review the Sarvam Kiwi service." required></textarea></div>
+            <div class="input-field-group"><label for="learn-corr-text">Corrected transcript</label><textarea id="learn-corr-text" class="form-textarea" rows="2" placeholder="Ask Aaditya to review the Sarvam Kivi service." required></textarea></div>
+            <button type="submit" class="btn btn-primary"><span>Ingest correction</span><svg class="icon"><use href="#icon-arrow"></use></svg></button>
+          </form>
+          <div id="learn-feedback" class="feedback-card" hidden></div>
+        </div>
+        <div class="panel surface-card">
+          <div class="panel-header"><div><span class="panel-index">B</span><h2>Add an explicit term</h2></div><span class="badge badge-info">Dictionary</span></div>
+          <p class="panel-desc">Add names, product terms, technical vocabulary, and the contexts that should encourage or prevent replacement.</p>
+          <form id="form-add-explicit">
+            <div class="form-row">
+              <div class="input-field-group col-8"><label for="dict-canonical">Canonical term</label><input type="text" id="dict-canonical" class="form-input" placeholder="Siobhan, PyTorch, Kivi" required></div>
+              <div class="input-field-group col-4"><label for="dict-category">Category</label><select id="dict-category" class="form-select"><option value="person">Person</option><option value="product">Product</option><option value="organization">Organization</option><option value="jargon">Jargon / Tech</option><option value="acronym">Acronym</option><option value="general">General</option></select></div>
+            </div>
+            <div class="input-field-group"><label for="dict-aliases">Known ASR aliases</label><input type="text" id="dict-aliases" class="form-input" placeholder="shivon, chevaun"><small class="field-help">Separate multiple values with commas.</small></div>
+            <div class="input-field-group"><label for="dict-triggers">Context triggers</label><input type="text" id="dict-triggers" class="form-input" placeholder="meeting, engineering, manager, call"></div>
+            <div class="input-field-group"><label for="dict-negatives">Negative contexts</label><input type="text" id="dict-negatives" class="form-input" placeholder="fruit, salad, eat, floor, down"></div>
+            <button type="submit" class="btn btn-secondary"><svg class="icon"><use href="#icon-plus"></use></svg><span>Save memory</span></button>
+          </form>
+        </div>
+        <div class="panel surface-card learn-card-full">
+          <div class="panel-header"><div><span class="panel-index">C</span><h2>Correct a wrong intervention</h2></div><span class="badge badge-danger">Negative evidence</span></div>
+          <p class="panel-desc">Record where a remembered term was wrong. Kivi learns the suppressing context while preserving valid uses elsewhere.</p>
+          <form id="form-learn-negative">
+            <div class="form-row equal-columns">
+              <div class="input-field-group"><label for="negative-memory-text">Kivi output</label><textarea id="negative-memory-text" class="form-textarea" rows="2" placeholder="I collected a fresh Pinecone from the forest floor." required></textarea></div>
+              <div class="input-field-group"><label for="negative-reverted-text">User-restored text</label><textarea id="negative-reverted-text" class="form-textarea" rows="2" placeholder="I collected a fresh pine cone from the forest floor." required></textarea></div>
+            </div>
+            <button type="submit" class="btn btn-secondary"><span>Record negative evidence</span><svg class="icon"><use href="#icon-arrow"></use></svg></button>
+          </form>
+          <div id="negative-feedback" class="feedback-card" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="memory-tab" class="tab-content">
+      <header class="page-heading page-heading-inline">
+        <div><p class="eyebrow">Memory inspector</p><h1>Review the active memory.</h1><p class="page-lede">Inspect terms, phonetic keys, confidence, provenance, and the contexts that control intervention.</p></div>
+        <label class="search-control" for="memory-search"><svg class="icon"><use href="#icon-search"></use></svg><input type="search" id="memory-search" class="form-input table-search" placeholder="Search memory"></label>
+      </header>
+      <div class="panel surface-card table-panel">
+        <div class="panel-header memory-header"><div><span class="panel-index">Live state</span><h2>Stored terms</h2></div><span class="table-note">Durable SQLite memory</span></div>
+        <div class="table-container">
+          <table class="memory-table">
+            <thead><tr><th>Canonical term</th><th>Category</th><th>Phonetic encodings</th><th>Confidence</th><th>Context triggers</th><th>Negative space</th><th>Source</th><th><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody id="memory-table-body"><tr><td colspan="8" class="text-center">Loading memories…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="eval-tab" class="tab-content">
+      <header class="page-heading page-heading-inline">
+        <div><p class="eyebrow">Evaluation benchmark</p><h1>Evidence, not anecdotes.</h1><p class="page-lede">Run the reproducible suite across names, jargon, homophones, and deliberate non-interventions.</p></div>
+        <button id="btn-run-eval" class="btn btn-primary btn-lg"><span>Run benchmark</span><svg class="icon"><use href="#icon-arrow"></use></svg></button>
+      </header>
+      <div class="eval-layout">
+        <div class="kpi-grid">
+          <div class="kpi-card surface-card"><span class="kpi-label">Exact match</span><span class="kpi-value" id="eval-kpi-acc">—</span><span class="kpi-sub">Target › 95%</span></div>
+          <div class="kpi-card surface-card"><span class="kpi-label">Precision</span><span class="kpi-value" id="eval-kpi-prec">—</span><span class="kpi-sub">Target › 95%</span></div>
+          <div class="kpi-card surface-card"><span class="kpi-label">Recall</span><span class="kpi-value" id="eval-kpi-rec">—</span><span class="kpi-sub">Target › 90%</span></div>
+          <div class="kpi-card surface-card"><span class="kpi-label">False interventions</span><span class="kpi-value" id="eval-kpi-fir">—</span><span class="kpi-sub">Target ‹ 5%</span></div>
+          <div class="kpi-card surface-card"><span class="kpi-label">Average latency</span><span class="kpi-value" id="eval-kpi-lat">—</span><span class="kpi-sub">Target ‹ 10 ms</span></div>
+        </div>
+        <div class="panel surface-card table-panel">
+          <div class="panel-header"><div><span class="panel-index">Case ledger</span><h2>Benchmark results</h2></div><span id="eval-case-counts" class="badge badge-neutral">0 cases</span></div>
+          <div class="table-container"><table class="eval-table"><thead><tr><th>ID</th><th>Category</th><th>Inputs</th><th>Expected / actual</th><th>Decision</th><th>Latency</th><th>Status</th></tr></thead><tbody id="eval-table-body"><tr><td colspan="7" class="text-center">Run the benchmark to execute the full test suite.</td></tr></tbody></table></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>

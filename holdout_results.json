@@ -1,0 +1,1136 @@
+{
+  "timestamp": "2026-09-09T16:24:52Z",
+  "total_graded_cases": 7,
+  "passed_graded_cases": 7,
+  "failed_graded_cases": 0,
+  "accuracy_pct": 100.0,
+  "precision_pct": 100.0,
+  "recall_pct": 100.0,
+  "false_intervention_rate_pct": 0.0,
+  "confusion_matrix": {
+    "true_positives": 4,
+    "false_positives": 0,
+    "true_negatives": 3,
+    "false_negatives": 0
+  },
+  "latency": {
+    "inference": {
+      "calls": 8,
+      "avg_ms": 3.05,
+      "max_ms": 4.251
+    },
+    "teaching": {
+      "calls": 4,
+      "avg_ms": 5.69,
+      "max_ms": 7.067
+    }
+  },
+  "journeys": [
+    {
+      "id": "HOLD-01",
+      "journey": "ishaan_one_shot_generalization",
+      "description": "Teach a brand-new person entity ('Ishaan') from a single realistic correction, with NO hand-authored seed entry anywhere in db/seed_data.py. Then test whether the system generalizes to a differently-misheard spelling ('Eshan', never seen in teaching) in an unseen sentence.",
+      "flag": null,
+      "teach_steps": [
+        {
+          "method": "correction",
+          "latency_ms": 7.067,
+          "result": [
+            {
+              "original_span": "ishan",
+              "canonical_term": "Ishaan",
+              "memory_id": 9,
+              "confidence": 0.88,
+              "context_triggers": [
+                "review",
+                "deployment",
+                "notes",
+                "before",
+                "merging"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HOLD-02",
+      "journey": "ishaan_reinforcement_through_ordinary_use",
+      "description": "A second, ordinary correction for the same person, in a different context ('standup'). Tests whether reinforcement through repeated ordinary use - not a bigger single upload - is what makes coverage broader, per the brief's 'how Kivi could learn through ordinary use'.",
+      "flag": null,
+      "teach_steps": [
+        {
+          "method": "correction",
+          "latency_ms": 6.706,
+          "result": [
+            {
+              "original_span": "eshan",
+              "canonical_term": "Ishaan",
+              "memory_id": 9,
+              "confidence": 0.91,
+              "context_triggers": [
+                "join",
+                "standup"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HOLD-03",
+      "journey": "pinecone_new_category_recognition",
+      "description": "A holdout entity outside the 'person' category (a product/jargon term), taught via an explicit dictionary entry rather than a correction, to prove the mechanism isn't special-cased to names. Deliberately configured the way a developer might realistically configure a v1 entry: no negative_contexts yet (see HOLD-04).",
+      "flag": null,
+      "teach_steps": [
+        {
+          "method": "dictionary",
+          "latency_ms": 4.403,
+          "result": {
+            "id": 10,
+            "canonical_term": "Pinecone",
+            "category": "product",
+            "phonetic_code": "PNKN",
+            "normalized_phonetic": "pinecone",
+            "soundex_code": "P525",
+            "aliases": [
+              "pine cone",
+              "pinecone"
+            ],
+            "confidence_score": 1.0,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.321159",
+            "created_at": "2026-09-09T16:24:52.321161",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "vector",
+              "embeddings",
+              "database",
+              "index",
+              "query",
+              "retrieval"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Vector DB product name. v1 config - see HOLD-04/HOLD-05 for what happens next."
+          }
+        }
+      ]
+    },
+    {
+      "id": "HOLD-04",
+      "journey": "pinecone_discovered_false_positive",
+      "description": "No new teaching - reuses the memory state left by HOLD-03. 'Pine cone' is also a real, unrelated English noun phrase (a literal pine cone), and the v1 entry above has no negative_contexts to protect against that. This case is a DELIBERATE, LABELED demonstration of a real failure mode we discovered while building this suite, not a cherry-picked success - see README 'Known limitations & discovered failure modes' and eval/run_eval.py's report, which lists it separately from the pass/fail tally rather than folding it into the headline accuracy number.",
+      "flag": "known_limitation_before_fix",
+      "teach_steps": []
+    },
+    {
+      "id": "HOLD-05",
+      "journey": "pinecone_negative_evidence_fix_verified",
+      "description": "The product's answer to HOLD-04: the user reverts Kivi's wrong substitution, which teaches negative evidence (learn_negative_correction) instead of requiring a developer to hand-edit negative_contexts. Verifies the fix (a) actually suppresses the failing case, (b) generalizes to a DIFFERENT unseen forest sentence rather than memorizing the one correction, and (c) does not regress the legitimate product-context case - the fix must be scoped, not a blanket kill switch.",
+      "flag": null,
+      "teach_steps": [
+        {
+          "method": "negative_correction",
+          "latency_ms": 4.582,
+          "result": [
+            {
+              "wrong_span": "Pinecone",
+              "reverted_to": "pine cone",
+              "memory_id": 10,
+              "canonical_term": "Pinecone",
+              "new_confidence": 0.85,
+              "added_negative_contexts": [
+                "collected",
+                "fresh",
+                "from",
+                "forest",
+                "floor",
+                "while",
+                "hiking"
+              ],
+              "deactivated": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "graded_cases": [
+    {
+      "case_id": "HOLD-01a",
+      "journey": "ishaan_one_shot_generalization",
+      "entity": "Ishaan",
+      "description": "Different misspelling than was taught ('Eshan' vs taught 'ishan'), in a sentence sharing two of the taught context words ('review', 'notes'). Phonetic similarity alone is moderate, not near-exact - this only crosses the intervention threshold because context corroborates it. Demonstrates the composite gate actually gating, not just phonetic lookup.",
+      "asr_input": "eshan should review the api docs and notes before merging",
+      "expected_output": "Ishaan should review the api docs and notes before merging.",
+      "actual_output": "Ishaan should review the api docs and notes before merging.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "desired_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 3.695,
+      "interventions_count": 1,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "Eshan",
+          "start_pos": 0,
+          "end_pos": 0,
+          "matched_memory_term": "Ishaan",
+          "memory_id": 9,
+          "phonetic_similarity": 0.6447,
+          "context_score": 0.84,
+          "evidence_confidence": 0.88,
+          "composite_decision_score": 0.7621,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'Eshan' with personal term 'Ishaan'. Score 0.7621 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.6447,
+            "context_score": 0.84,
+            "evidence_confidence": 0.88,
+            "composite_score": 0.7621,
+            "pos_matched_triggers": [
+              "review",
+              "notes",
+              "before",
+              "merging"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": false,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.778,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.75,
+              "jaro_winkler": 0.822,
+              "raw_lev_sim": 0.667,
+              "target_phonetics": {
+                "raw": "ishaan",
+                "metaphone": "IXN",
+                "soundex": "I250",
+                "normalized": "isan"
+              },
+              "candidate_phonetics": {
+                "raw": "eshan",
+                "metaphone": "EXN",
+                "soundex": "E250",
+                "normalized": "esan"
+              },
+              "composite_score": 0.6447
+            }
+          }
+        },
+        {
+          "original_span": "docs",
+          "start_pos": 5,
+          "end_pos": 5,
+          "matched_memory_term": "Deeksha",
+          "memory_id": 4,
+          "phonetic_similarity": 0.6248,
+          "context_score": 0.0,
+          "evidence_confidence": 0.92,
+          "composite_decision_score": 0.5112,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Deeksha was deliberately suppressed: High phonetic & contextual agreement (score 0.5112 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.6248,
+            "context_score": 0.0,
+            "evidence_confidence": 0.92,
+            "composite_score": 0.5112,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [],
+            "is_known_alias": false,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.822,
+              "soundex_match": true,
+              "norm_phonetic_sim": 0.4,
+              "jaro_winkler": 0.595,
+              "raw_lev_sim": 0.286,
+              "target_phonetics": {
+                "raw": "deeksha",
+                "metaphone": "TKX",
+                "soundex": "D200",
+                "normalized": "diksa"
+              },
+              "candidate_phonetics": {
+                "raw": "docs",
+                "metaphone": "TKS",
+                "soundex": "D200",
+                "normalized": "docs"
+              },
+              "composite_score": 0.6248
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 9,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan"
+        ],
+        "relevant_memories": [
+          {
+            "id": 4,
+            "canonical_term": "Deeksha",
+            "category": "person",
+            "phonetic_code": "TKX",
+            "normalized_phonetic": "diksa",
+            "soundex_code": "D200",
+            "aliases": [
+              "Diksha",
+              "Deekshya"
+            ],
+            "confidence_score": 0.92,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.220700",
+            "created_at": "2026-09-09T16:24:52.220702",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "product",
+              "roadmap",
+              "sync",
+              "jira",
+              "call",
+              "designer"
+            ],
+            "negative_contexts": [
+              "ceremony",
+              "initiation",
+              "spiritual"
+            ],
+            "is_active": true,
+            "notes": "Product Manager name"
+          },
+          {
+            "id": 9,
+            "canonical_term": "Ishaan",
+            "category": "learned_entity",
+            "phonetic_code": "IXN",
+            "normalized_phonetic": "isan",
+            "soundex_code": "I250",
+            "aliases": [
+              "ishan"
+            ],
+            "confidence_score": 0.88,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.298734",
+            "created_at": "2026-09-09T16:24:52.298736",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "review",
+              "deployment",
+              "notes",
+              "before",
+              "merging"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Learned from user correction: 'ishan' -> 'Ishaan'"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "HOLD-01b",
+      "journey": "ishaan_one_shot_generalization",
+      "entity": "Ishaan",
+      "description": "Same unseen misspelling as HOLD-01a, but zero overlap with the one context vocabulary the system has ever observed for this person. A single correction is deliberately not enough evidence to intervene in a completely unrelated context - this is the product choosing silence under weak evidence, not a bug. Compare to HOLD-02a, where a second ordinary correction changes this outcome for a *different* unrelated context.",
+      "asr_input": "is eshan free for lunch",
+      "expected_output": "Is eshan free for lunch.",
+      "actual_output": "Is eshan free for lunch.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "desired_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 1.62,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "eshan",
+          "start_pos": 1,
+          "end_pos": 1,
+          "matched_memory_term": "Ishaan",
+          "memory_id": 9,
+          "phonetic_similarity": 0.6447,
+          "context_score": 0.0,
+          "evidence_confidence": 0.88,
+          "composite_decision_score": 0.5101,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Ishaan was deliberately suppressed: High phonetic & contextual agreement (score 0.5101 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.6447,
+            "context_score": 0.0,
+            "evidence_confidence": 0.88,
+            "composite_score": 0.5101,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [],
+            "is_known_alias": false,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.778,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.75,
+              "jaro_winkler": 0.822,
+              "raw_lev_sim": 0.667,
+              "target_phonetics": {
+                "raw": "ishaan",
+                "metaphone": "IXN",
+                "soundex": "I250",
+                "normalized": "isan"
+              },
+              "candidate_phonetics": {
+                "raw": "eshan",
+                "metaphone": "EXN",
+                "soundex": "E250",
+                "normalized": "esan"
+              },
+              "composite_score": 0.6447
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 9,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan"
+        ],
+        "relevant_memories": [
+          {
+            "id": 9,
+            "canonical_term": "Ishaan",
+            "category": "learned_entity",
+            "phonetic_code": "IXN",
+            "normalized_phonetic": "isan",
+            "soundex_code": "I250",
+            "aliases": [
+              "ishan"
+            ],
+            "confidence_score": 0.88,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.298734",
+            "created_at": "2026-09-09T16:24:52.298736",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "review",
+              "deployment",
+              "notes",
+              "before",
+              "merging"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Learned from user correction: 'ishan' -> 'Ishaan'"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "HOLD-02a",
+      "journey": "ishaan_reinforcement_through_ordinary_use",
+      "entity": "Ishaan",
+      "description": "This is the exact sentence from HOLD-01b's context family ('free for ...'), which was suppressed before. It now intervenes because 'standup' overlaps a trigger learned in the second correction, AND 'eshan' is now itself a confirmed alias (not just a phonetic guess) - both learned from ordinary use, not from a bigger initial dictionary entry.",
+      "asr_input": "is eshan free for the standup",
+      "expected_output": "Is Ishaan free for the standup.",
+      "actual_output": "Is Ishaan free for the standup.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "desired_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 2.023,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "eshan",
+          "start_pos": 1,
+          "end_pos": 1,
+          "matched_memory_term": "Ishaan",
+          "memory_id": 9,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.314,
+          "evidence_confidence": 0.91,
+          "composite_decision_score": 0.7492,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'eshan' with personal term 'Ishaan'. Score 0.7492 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.314,
+            "evidence_confidence": 0.91,
+            "composite_score": 0.7492,
+            "pos_matched_triggers": [
+              "standup"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.778,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.75,
+              "jaro_winkler": 0.822,
+              "raw_lev_sim": 0.667,
+              "target_phonetics": {
+                "raw": "ishaan",
+                "metaphone": "IXN",
+                "soundex": "I250",
+                "normalized": "isan"
+              },
+              "candidate_phonetics": {
+                "raw": "eshan",
+                "metaphone": "EXN",
+                "soundex": "E250",
+                "normalized": "esan"
+              },
+              "composite_score": 0.6447
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 9,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan"
+        ],
+        "relevant_memories": [
+          {
+            "id": 9,
+            "canonical_term": "Ishaan",
+            "category": "learned_entity",
+            "phonetic_code": "IXN",
+            "normalized_phonetic": "isan",
+            "soundex_code": "I250",
+            "aliases": [
+              "ishan",
+              "eshan"
+            ],
+            "confidence_score": 0.91,
+            "reinforcement_count": 2,
+            "last_reinforced_at": "2026-09-09T16:24:52.312022",
+            "created_at": "2026-09-09T16:24:52.298736",
+            "source_type": "explicit_correction",
+            "context_triggers": [
+              "review",
+              "deployment",
+              "notes",
+              "before",
+              "merging",
+              "join",
+              "standup"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Learned from user correction: 'eshan' -> 'Ishaan'"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "HOLD-03a",
+      "journey": "pinecone_new_category_recognition",
+      "entity": "Pinecone",
+      "description": "Multi-word ASR mishearing ('pine cone') in a legitimate product context.",
+      "asr_input": "we store the embeddings in pine cone for fast retrieval",
+      "expected_output": "We store the embeddings in Pinecone for fast retrieval.",
+      "actual_output": "We store the embeddings in Pinecone for fast retrieval.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "desired_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 2.949,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "pine cone",
+          "start_pos": 5,
+          "end_pos": 6,
+          "matched_memory_term": "Pinecone",
+          "memory_id": 10,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.467,
+          "evidence_confidence": 1.0,
+          "composite_decision_score": 0.8176,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'pine cone' with personal term 'Pinecone'. Score 0.8176 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.467,
+            "evidence_confidence": 1.0,
+            "composite_score": 0.8176,
+            "pos_matched_triggers": [
+              "embeddings",
+              "retrieval"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.947,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.889,
+              "jaro_winkler": 0.978,
+              "raw_lev_sim": 0.889,
+              "target_phonetics": {
+                "raw": "pinecone",
+                "metaphone": "PNKN",
+                "soundex": "P525",
+                "normalized": "pinecone"
+              },
+              "candidate_phonetics": {
+                "raw": "pine cone",
+                "metaphone": "PN KN",
+                "soundex": "P500 C500",
+                "normalized": "pine cone"
+              },
+              "composite_score": 0.7818
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 10,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan",
+          "Pinecone"
+        ],
+        "relevant_memories": [
+          {
+            "id": 10,
+            "canonical_term": "Pinecone",
+            "category": "product",
+            "phonetic_code": "PNKN",
+            "normalized_phonetic": "pinecone",
+            "soundex_code": "P525",
+            "aliases": [
+              "pine cone",
+              "pinecone"
+            ],
+            "confidence_score": 1.0,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.321159",
+            "created_at": "2026-09-09T16:24:52.321161",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "vector",
+              "embeddings",
+              "database",
+              "index",
+              "query",
+              "retrieval"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Vector DB product name. v1 config - see HOLD-04/HOLD-05 for what happens next."
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "HOLD-05a",
+      "journey": "pinecone_negative_evidence_fix_verified",
+      "entity": "Pinecone",
+      "description": "Same sentence as HOLD-04a - now correctly suppressed.",
+      "asr_input": "i collected a fresh pine cone from the forest floor while hiking",
+      "expected_output": "I collected a fresh pine cone from the forest floor while hiking.",
+      "actual_output": "I collected a fresh pine cone from the forest floor while hiking.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "desired_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 4.251,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "pine cone",
+          "start_pos": 4,
+          "end_pos": 5,
+          "matched_memory_term": "Pinecone",
+          "memory_id": 10,
+          "phonetic_similarity": 0.95,
+          "context_score": -1.0,
+          "evidence_confidence": 0.85,
+          "composite_decision_score": 0.0,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Pinecone was deliberately suppressed: Suppressed: Negative context detected (collected, fresh, from, forest, floor, while, hiking) (score 0.0 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": -1.0,
+            "evidence_confidence": 0.85,
+            "composite_score": 0.0,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [
+              "collected",
+              "fresh",
+              "from",
+              "forest",
+              "floor",
+              "while",
+              "hiking"
+            ],
+            "is_known_alias": true,
+            "reason": "Suppressed: Negative context detected (collected, fresh, from, forest, floor, while, hiking)",
+            "phonetic_details": {
+              "metaphone_sim": 0.947,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.889,
+              "jaro_winkler": 0.978,
+              "raw_lev_sim": 0.889,
+              "target_phonetics": {
+                "raw": "pinecone",
+                "metaphone": "PNKN",
+                "soundex": "P525",
+                "normalized": "pinecone"
+              },
+              "candidate_phonetics": {
+                "raw": "pine cone",
+                "metaphone": "PN KN",
+                "soundex": "P500 C500",
+                "normalized": "pine cone"
+              },
+              "composite_score": 0.7818
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 10,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan",
+          "Pinecone"
+        ],
+        "relevant_memories": [
+          {
+            "id": 10,
+            "canonical_term": "Pinecone",
+            "category": "product",
+            "phonetic_code": "PNKN",
+            "normalized_phonetic": "pinecone",
+            "soundex_code": "P525",
+            "aliases": [
+              "pine cone",
+              "pinecone"
+            ],
+            "confidence_score": 0.85,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.321159",
+            "created_at": "2026-09-09T16:24:52.321161",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "vector",
+              "embeddings",
+              "database",
+              "index",
+              "query",
+              "retrieval"
+            ],
+            "negative_contexts": [
+              "collected",
+              "fresh",
+              "from",
+              "forest",
+              "floor",
+              "while",
+              "hiking"
+            ],
+            "is_active": true,
+            "notes": "Vector DB product name. v1 config - see HOLD-04/HOLD-05 for what happens next. | Reverted in context (collected, fresh, from, forest, floor, while, hiking); confidence -0.15"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "HOLD-05b",
+      "journey": "pinecone_negative_evidence_fix_verified",
+      "entity": "Pinecone",
+      "description": "A DIFFERENT, previously-unseen sentence that shares the learned negative context 'forest'. This checks that the veto generalizes from contextual evidence rather than memorizing the exact corrected sentence.",
+      "asr_input": "she picked up a pine cone near the forest trail and put it in her bag",
+      "expected_output": "She picked up a pine cone near the forest trail and put it in her bag.",
+      "actual_output": "She picked up a pine cone near the forest trail and put it in her bag.",
+      "expected_decision": "DO_NOTHING",
+      "actual_decision": "DO_NOTHING",
+      "desired_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 4.176,
+      "interventions_count": 0,
+      "suppressed_count": 1,
+      "traces": [
+        {
+          "original_span": "pine cone",
+          "start_pos": 4,
+          "end_pos": 5,
+          "matched_memory_term": "Pinecone",
+          "memory_id": 10,
+          "phonetic_similarity": 0.95,
+          "context_score": -1.0,
+          "evidence_confidence": 0.85,
+          "composite_decision_score": 0.0,
+          "threshold": 0.65,
+          "decision": "SUPPRESSED",
+          "reason": "Candidate Pinecone was deliberately suppressed: Suppressed: Negative context detected (forest) (score 0.0 vs threshold 0.65).",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": -1.0,
+            "evidence_confidence": 0.85,
+            "composite_score": 0.0,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [
+              "forest"
+            ],
+            "is_known_alias": true,
+            "reason": "Suppressed: Negative context detected (forest)",
+            "phonetic_details": {
+              "metaphone_sim": 0.947,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.889,
+              "jaro_winkler": 0.978,
+              "raw_lev_sim": 0.889,
+              "target_phonetics": {
+                "raw": "pinecone",
+                "metaphone": "PNKN",
+                "soundex": "P525",
+                "normalized": "pinecone"
+              },
+              "candidate_phonetics": {
+                "raw": "pine cone",
+                "metaphone": "PN KN",
+                "soundex": "P500 C500",
+                "normalized": "pine cone"
+              },
+              "composite_score": 0.7818
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 10,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan",
+          "Pinecone"
+        ],
+        "relevant_memories": [
+          {
+            "id": 10,
+            "canonical_term": "Pinecone",
+            "category": "product",
+            "phonetic_code": "PNKN",
+            "normalized_phonetic": "pinecone",
+            "soundex_code": "P525",
+            "aliases": [
+              "pine cone",
+              "pinecone"
+            ],
+            "confidence_score": 0.85,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.321159",
+            "created_at": "2026-09-09T16:24:52.321161",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "vector",
+              "embeddings",
+              "database",
+              "index",
+              "query",
+              "retrieval"
+            ],
+            "negative_contexts": [
+              "collected",
+              "fresh",
+              "from",
+              "forest",
+              "floor",
+              "while",
+              "hiking"
+            ],
+            "is_active": true,
+            "notes": "Vector DB product name. v1 config - see HOLD-04/HOLD-05 for what happens next. | Reverted in context (collected, fresh, from, forest, floor, while, hiking); confidence -0.15"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "HOLD-05c",
+      "journey": "pinecone_negative_evidence_fix_verified",
+      "entity": "Pinecone",
+      "description": "The original legitimate product-context case from HOLD-03 must still work. If this regressed, the negative-evidence mechanism would be an indiscriminate kill switch rather than a scoped correction - it is not.",
+      "asr_input": "we store the embeddings in pine cone for fast retrieval",
+      "expected_output": "We store the embeddings in Pinecone for fast retrieval.",
+      "actual_output": "We store the embeddings in Pinecone for fast retrieval.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "desired_decision": "INTERVENE",
+      "passed": true,
+      "latency_ms": 2.42,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "pine cone",
+          "start_pos": 5,
+          "end_pos": 6,
+          "matched_memory_term": "Pinecone",
+          "memory_id": 10,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.467,
+          "evidence_confidence": 0.85,
+          "composite_decision_score": 0.7801,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'pine cone' with personal term 'Pinecone'. Score 0.7801 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.467,
+            "evidence_confidence": 0.85,
+            "composite_score": 0.7801,
+            "pos_matched_triggers": [
+              "embeddings",
+              "retrieval"
+            ],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.947,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.889,
+              "jaro_winkler": 0.978,
+              "raw_lev_sim": 0.889,
+              "target_phonetics": {
+                "raw": "pinecone",
+                "metaphone": "PNKN",
+                "soundex": "P525",
+                "normalized": "pinecone"
+              },
+              "candidate_phonetics": {
+                "raw": "pine cone",
+                "metaphone": "PN KN",
+                "soundex": "P500 C500",
+                "normalized": "pine cone"
+              },
+              "composite_score": 0.7818
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 10,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan",
+          "Pinecone"
+        ],
+        "relevant_memories": [
+          {
+            "id": 10,
+            "canonical_term": "Pinecone",
+            "category": "product",
+            "phonetic_code": "PNKN",
+            "normalized_phonetic": "pinecone",
+            "soundex_code": "P525",
+            "aliases": [
+              "pine cone",
+              "pinecone"
+            ],
+            "confidence_score": 0.85,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.321159",
+            "created_at": "2026-09-09T16:24:52.321161",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "vector",
+              "embeddings",
+              "database",
+              "index",
+              "query",
+              "retrieval"
+            ],
+            "negative_contexts": [
+              "collected",
+              "fresh",
+              "from",
+              "forest",
+              "floor",
+              "while",
+              "hiking"
+            ],
+            "is_active": true,
+            "notes": "Vector DB product name. v1 config - see HOLD-04/HOLD-05 for what happens next. | Reverted in context (collected, fresh, from, forest, floor, while, hiking); confidence -0.15"
+          }
+        ]
+      }
+    }
+  ],
+  "limitation_cases": [
+    {
+      "case_id": "HOLD-04a",
+      "journey": "pinecone_discovered_false_positive",
+      "entity": "Pinecone",
+      "description": "This is the BUG, recorded as the system's actual (undesirable) behavior today given only the HOLD-03 teaching: it wrongly substitutes the literal pine cone. High phonetic similarity ('pine cone' is a registered alias) plus a merely-moderate base confidence is enough to clear the threshold even with zero relevant context, because no negative_contexts were ever taught for this entity. HOLD-05 shows the fix for exactly this.",
+      "asr_input": "i collected a fresh pine cone from the forest floor while hiking",
+      "expected_output": "I collected a fresh Pinecone from the forest floor while hiking.",
+      "actual_output": "I collected a fresh Pinecone from the forest floor while hiking.",
+      "expected_decision": "INTERVENE",
+      "actual_decision": "INTERVENE",
+      "desired_decision": "DO_NOTHING",
+      "passed": true,
+      "latency_ms": 3.229,
+      "interventions_count": 1,
+      "suppressed_count": 0,
+      "traces": [
+        {
+          "original_span": "pine cone",
+          "start_pos": 4,
+          "end_pos": 5,
+          "matched_memory_term": "Pinecone",
+          "memory_id": 10,
+          "phonetic_similarity": 0.95,
+          "context_score": 0.0,
+          "evidence_confidence": 1.0,
+          "composite_decision_score": 0.6775,
+          "threshold": 0.65,
+          "decision": "INTERVENED",
+          "reason": "Replaced 'pine cone' with personal term 'Pinecone'. Score 0.6775 >= 0.65.",
+          "details": {
+            "phonetic_similarity": 0.95,
+            "context_score": 0.0,
+            "evidence_confidence": 1.0,
+            "composite_score": 0.6775,
+            "pos_matched_triggers": [],
+            "neg_matched_triggers": [],
+            "is_known_alias": true,
+            "reason": "High phonetic & contextual agreement",
+            "phonetic_details": {
+              "metaphone_sim": 0.947,
+              "soundex_match": false,
+              "norm_phonetic_sim": 0.889,
+              "jaro_winkler": 0.978,
+              "raw_lev_sim": 0.889,
+              "target_phonetics": {
+                "raw": "pinecone",
+                "metaphone": "PNKN",
+                "soundex": "P525",
+                "normalized": "pinecone"
+              },
+              "candidate_phonetics": {
+                "raw": "pine cone",
+                "metaphone": "PN KN",
+                "soundex": "P500 C500",
+                "normalized": "pine cone"
+              },
+              "composite_score": 0.7818
+            }
+          }
+        }
+      ],
+      "relevant_memory_state": {
+        "active_memory_count": 10,
+        "active_memory_terms": [
+          "Aaditya",
+          "Kivi",
+          "Sarvam",
+          "Deeksha",
+          "PyTorch",
+          "Supabase",
+          "Kubernetes",
+          "Neil",
+          "Ishaan",
+          "Pinecone"
+        ],
+        "relevant_memories": [
+          {
+            "id": 10,
+            "canonical_term": "Pinecone",
+            "category": "product",
+            "phonetic_code": "PNKN",
+            "normalized_phonetic": "pinecone",
+            "soundex_code": "P525",
+            "aliases": [
+              "pine cone",
+              "pinecone"
+            ],
+            "confidence_score": 1.0,
+            "reinforcement_count": 1,
+            "last_reinforced_at": "2026-09-09T16:24:52.321159",
+            "created_at": "2026-09-09T16:24:52.321161",
+            "source_type": "manual_dictionary",
+            "context_triggers": [
+              "vector",
+              "embeddings",
+              "database",
+              "index",
+              "query",
+              "retrieval"
+            ],
+            "negative_contexts": [],
+            "is_active": true,
+            "notes": "Vector DB product name. v1 config - see HOLD-04/HOLD-05 for what happens next."
+          }
+        ]
+      }
+    }
+  ]
+}

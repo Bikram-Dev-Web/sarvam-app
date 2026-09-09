@@ -1,0 +1,327 @@
+{
+  "timestamp": "2026-09-09T16:24:52Z",
+  "total_cases_in_sweep": 24,
+  "cases_by_suite": {
+    "holdout_generalization": 7,
+    "holdout_generalization_limitation": 1,
+    "regression_seeded": 16
+  },
+  "shipped_default": {
+    "threshold": 0.65,
+    "weights": {
+      "phonetic": 0.45,
+      "context": 0.3,
+      "confidence": 0.25
+    }
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.3,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 91.67,
+      "precision_pct": 86.67,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 18.18,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 2,
+        "true_negatives": 9,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.35,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 91.67,
+      "precision_pct": 86.67,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 18.18,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 2,
+        "true_negatives": 9,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.4,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 91.67,
+      "precision_pct": 86.67,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 18.18,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 2,
+        "true_negatives": 9,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.45,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 91.67,
+      "precision_pct": 86.67,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 18.18,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 2,
+        "true_negatives": 9,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.5,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 91.67,
+      "precision_pct": 86.67,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 18.18,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 2,
+        "true_negatives": 9,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.55,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 95.83,
+      "precision_pct": 92.86,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 9.09,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 1,
+        "true_negatives": 10,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.6,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 95.83,
+      "precision_pct": 92.86,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 9.09,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 1,
+        "true_negatives": 10,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.65,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 95.83,
+      "precision_pct": 92.86,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 9.09,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 1,
+        "true_negatives": 10,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.7,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 0.0,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 0,
+        "true_negatives": 11,
+        "false_negatives": 0
+      }
+    },
+    {
+      "threshold": 0.75,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 87.5,
+      "precision_pct": 100.0,
+      "recall_pct": 76.92,
+      "false_intervention_rate_pct": 0.0,
+      "confusion_matrix": {
+        "true_positives": 10,
+        "false_positives": 0,
+        "true_negatives": 11,
+        "false_negatives": 3
+      }
+    },
+    {
+      "threshold": 0.8,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 66.67,
+      "precision_pct": 100.0,
+      "recall_pct": 38.46,
+      "false_intervention_rate_pct": 0.0,
+      "confusion_matrix": {
+        "true_positives": 5,
+        "false_positives": 0,
+        "true_negatives": 11,
+        "false_negatives": 8
+      }
+    },
+    {
+      "threshold": 0.85,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 45.83,
+      "precision_pct": 100.0,
+      "recall_pct": 0.0,
+      "false_intervention_rate_pct": 0.0,
+      "confusion_matrix": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "true_negatives": 11,
+        "false_negatives": 13
+      }
+    },
+    {
+      "threshold": 0.9,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 45.83,
+      "precision_pct": 100.0,
+      "recall_pct": 0.0,
+      "false_intervention_rate_pct": 0.0,
+      "confusion_matrix": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "true_negatives": 11,
+        "false_negatives": 13
+      }
+    }
+  ],
+  "weight_ablation": {
+    "phonetic_only": {
+      "threshold": 0.65,
+      "weights": {
+        "phonetic": 1.0,
+        "context": 0.0,
+        "confidence": 0.0
+      },
+      "accuracy_pct": 91.67,
+      "precision_pct": 92.31,
+      "recall_pct": 92.31,
+      "false_intervention_rate_pct": 9.09,
+      "confusion_matrix": {
+        "true_positives": 12,
+        "false_positives": 1,
+        "true_negatives": 10,
+        "false_negatives": 1
+      }
+    },
+    "phonetic_plus_context": {
+      "threshold": 0.65,
+      "weights": {
+        "phonetic": 0.6,
+        "context": 0.4,
+        "confidence": 0.0
+      },
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 0.0,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 0,
+        "true_negatives": 11,
+        "false_negatives": 0
+      }
+    },
+    "shipped_default": {
+      "threshold": 0.65,
+      "weights": {
+        "phonetic": 0.45,
+        "context": 0.3,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 95.83,
+      "precision_pct": 92.86,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 9.09,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 1,
+        "true_negatives": 10,
+        "false_negatives": 0
+      }
+    },
+    "context_heavy": {
+      "threshold": 0.65,
+      "weights": {
+        "phonetic": 0.3,
+        "context": 0.45,
+        "confidence": 0.25
+      },
+      "accuracy_pct": 100.0,
+      "precision_pct": 100.0,
+      "recall_pct": 100.0,
+      "false_intervention_rate_pct": 0.0,
+      "confusion_matrix": {
+        "true_positives": 13,
+        "false_positives": 0,
+        "true_negatives": 11,
+        "false_negatives": 0
+      }
+    }
+  }
+}
